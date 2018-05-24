@@ -12,7 +12,7 @@ function doLogin()
 	userId = 0;
 	firstName = "";
 	lastName = "";
-	
+	//testing - ike
 	var login = document.getElementById("loginName").value;
 	var password = document.getElementById("loginPassword").value;
 	
