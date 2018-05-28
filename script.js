@@ -112,6 +112,20 @@ function addColor()
 }
 
 //need to include a delete users function 
+function deleteUser(primaryKey, user)
+{
+    
+    
+    
+    
+}
+
+function deleteContact()
+{
+    
+    
+    
+}
 
 function searchColor()
 {
