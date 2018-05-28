@@ -13,6 +13,8 @@ function createUser()
     var userPick = document.getElementById("newUser").value; //taking up the user new name. it should check if the name is not taken yet
     var password = document.getElementById("newPassword").value; //this is a varible to take the password to up. Next step is to make sure the password meet critera (at least 8 character, upper, lower, number and symbol,
     
+    
+    
 }
 
 function doLogin()
@@ -88,6 +90,12 @@ function hideOrShow( elementId, showState )
 	
 	document.getElementById( elementId ).style.visibility = vis;
 	document.getElementById( elementId ).style.display = dis;
+}
+
+function addContact()//added the contact 
+{
+    
+    
 }
 
 function addColor()
