@@ -1,6 +1,6 @@
 //This is the professors unedited js code for hte colours 
 
-var urlBase = 'http://COP4331-3.com/LAMPAPI'; //url will be changed to whatever godaddy host url is 
+var urlBase = 'http://poopgroup6.com'; //url will be changed to whatever godaddy host url is
 var extension = "php";
 
 var userId = 0;
