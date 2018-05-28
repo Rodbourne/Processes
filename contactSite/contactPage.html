@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="contactCSS.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<!-- Div class containing searchable name list-->
+<div class="nameList">
+
+<h2>Do you eat ass?</h2>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+
+<ul id="myUL">
+  <li><a href="#">Adelops Morrison</a></li>
+  <li><a href="#">Agnigga Rebukies</a></li>
+
+  <li><a href="#">Billon't Killyaself</a></li>
+  <li><a href="#">Bob</a></li>
+
+  <li><a href="#">Calvin</a></li>
+  <li><a href="#">Christina</a></li>
+  <li><a href="#">Cindy</a></li>
+</ul>
+
+<script>
+function myFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+
+        }
+    }
+}
+</script>
+</div>
+<!-- Modal button containing contact form for adding-->
+<!-- Trigger/Open the Modal -->
+<button onclick="document.getElementById('id01').style.display='block'"
+class="w3-button">Add a nibba</button>
+
+<!-- The Modal -->
+<div id="id01" class="w3-modal">
+  <div class="w3-modal-content">
+    <div style = "background-color:#f2f2f2;" class="w3-container">
+      <span onclick="document.getElementById('id01').style.display='none'" 
+      class="w3-button w3-display-topright">&times;</span>
+      <div class="container"> 
+<!--The contact form -->
+  <form action="/action_page.php">
+    <label for="fname">First Name</label>
+    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+
+    <label for="lname">Last Name</label>
+    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+    <label for="nname">Nickname</label>
+    <input type="text" id="nname" name="nickname" placeholder="Your nickname..">
+
+   
+    <label for="pnumber">Phone Number</label>
+    <input type="text" id="pnumber" name="phonenumber" placeholder="Your phone number">
+       <label for="pnumber">Address</label>
+    <input type="text" id="addy" name="address" placeholder="Street address..">
+
+    
+
+    <input type="submit" value="Submit" onclick="addContact();">
+  </form>
+</div>
+
+    </div>
+  </div>
+</div>
+
+
+
+</body>
+</html>
