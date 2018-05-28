@@ -92,13 +92,13 @@ function hideOrShow( elementId, showState )
 	document.getElementById( elementId ).style.display = dis;
 }
 
-function addContact()//added the contact 
+function addContact()//added the contact
 {
     
     
 }
 
-function addColor()
+function addColor() //need to remove later on
 {
 	var newColor = document.getElementById("colorText").value;
 	document.getElementById("colorAddResult").innerHTML = "";
