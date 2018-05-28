@@ -94,7 +94,10 @@ function hideOrShow( elementId, showState )
 
 function addContact()//added the contact
 {
-    
+    var First = document.getElementById("firstname").value;
+    var Last = document.getElementById("lastname").value;
+    var Nickname = document.getElementById("nickname").value;
+    var Address = document.getElementById("address").value;
     
 }
 
