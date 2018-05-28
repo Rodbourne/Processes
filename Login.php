@@ -18,37 +18,27 @@
 		if ($result->num_rows > 0)
 		{
 			$row = $result->fetch_assoc();
-			$id = $row["ID"];
+			$id = $row["userID"];
+			sendResultInfoAsJson("Success! User Logged In");
 		}
 		else
 		{
-			returnWithError( "No Records Found" );
+			sendResultInfoAsJson("ERROR! User or Password Does Not Exist");
 		}
 		$conn->close();
 	}
 
-	returnWithInfo($firstName, $lastName, $id );
+	returnWithInfo($id);
 
 	function getRequestInfo()
 	{
 		return json_decode(file_get_contents('php://input'), true);
 	}
 
-	function sendResultInfoAsJson( $obj )
-	{
-		header('Content-type: application/json');
-		echo $obj;
-	}
-
-	function returnWithError( $err )
-	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
-		sendResultInfoAsJson( $retValue );
-	}
-
 	function returnWithInfo( $firstName, $lastName, $id )
 	{
-		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
+		//Error is there from professor, should return null
+		$retValue = '{"UserID":' . $id . '","error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 
