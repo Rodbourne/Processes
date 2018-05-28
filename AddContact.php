@@ -11,14 +11,15 @@
 	$userId = $inData["userId"];
 
   //Not sure what to put in these fields
-	$conn = new mysqli("localhost", "userName", "passWord", "databaseName");
+	//port = 3306
+	$conn = new mysqli("localhost", "root_suvrat", "cop4331!", "Contacts_Suvrat");
 	if ($conn->connect_error)
 	{
 		returnWithError( $conn->connect_error );
 	}
 	else
 	{                              /* Data fields */
-		$sql = "insert into Contact (UserId,FirstName,LastName,Phone,State,City,Address,Zipcode,NickName) VALUES (" . $userId . ",'" . $contactFName . ",'" . $contactLName . ",'" . $contactPhone . ",'"
+		$sql = "insert into Contacts (UserID,FirstName,LastName,Phone,State,City,Address,Zipcode,Nickname) VALUES (" . $userId . ",'" . $contactFName . ",'" . $contactLName . ",'" . $contactPhone . ",'"
      . $contactState . ",'" . $contactCity .  ",'" . $contactAddress . ",'" $contactZipcode ",'" . $contactNickName ."')";
 		if( $result = $conn->query($sql) != TRUE )
 		{
