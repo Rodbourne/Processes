@@ -25,6 +25,8 @@ function doLogin()
 	
 	var login = document.getElementById("loginName").value;
 	var password = document.getElementById("loginPassword").value;
+    
+    //add the sha1 to take the password and send it off to the server
 	
 	document.getElementById("loginResult").innerHTML = "";
 	
@@ -161,7 +163,7 @@ function sha1(msg) //found this online... I and just reading throught this to se
 //it have a 20 character salt added to the hash before sending this to the server
 {
     function rotl(n,s)
-{
+    {
         return n<<s|n>>>32-s;
     };
     
@@ -188,7 +190,8 @@ function sha1(msg) //found this online... I and just reading throught this to se
     while(wa.length%16!=14) wa.push(0);
         wa.push(ml>>>29),wa.push((ml<<3)&M);
     
-    for( var bo=0;bo<wa.length;bo+=16 ) {
+    for( var bo=0;bo<wa.length;bo+=16 )
+    {
         for(i=0;i<16;i++)
             W[i]=wa[bo+i];
         for(i=16;i<=79;i++)
@@ -206,7 +209,7 @@ function sha1(msg) //found this online... I and just reading throught this to se
         
         for(i=60;i<=79;i++)
             t=(rotl(A,5)+(B^C^D)+E+W[i]+0xCA62C1D6)&M, E=D, D=C, C=rotl(B,30), B=A, A=t;
-        H0=H0+A&M;H1=H1+B&M;H2=H2+C&M;H3=H3+D&M;H4=H4+E&M;
+        H0=H0+A&M; H1=H1+B&M; H2=H2+C&M; H3=H3+D&M; H4=H4+E&M;
     }
     return tohex(H0)+tohex(H1)+tohex(H2)+tohex(H3)+tohex(H4);
 }
