@@ -147,6 +147,7 @@ function deleteContact()
     
 }
 
+//the function to change the password to text to check the password
 function ShowPass() {
     var x = document.getElementById("pswd");
     if (x.type == "password") {
@@ -160,7 +161,7 @@ function sha1(msg) //found this online... I and just reading throught this to se
 //it have a 20 character salt added to the hash before sending this to the server
 {
     function rotl(n,s)
-    {
+{
         return n<<s|n>>>32-s;
     };
     
