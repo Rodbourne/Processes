@@ -22,7 +22,7 @@ function doLogin()
 	userId = 0;
 	firstName = "";
 	lastName = "";
-	//testing - ike
+	
 	var login = document.getElementById("loginName").value;
 	var password = document.getElementById("loginPassword").value;
 	
@@ -92,7 +92,7 @@ function hideOrShow( elementId, showState )
 	document.getElementById( elementId ).style.display = dis;
 }
 
-function addContact()//added the contact
+function addContact()//added the contact not finished
 {
     var First = document.getElementById("firstname").value;
     var Last = document.getElementById("lastname").value;
@@ -147,7 +147,16 @@ function deleteContact()
     
 }
 
-function searchColor()
+function ShowPass() {
+    var x = document.getElementById("pswd");
+    if (x.type == "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+
+function searchColor() //emebbed in the html i think
 {
 	var srch = document.getElementById("searchText").value;
 	document.getElementById("colorSearchResult").innerHTML = "";
