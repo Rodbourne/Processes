@@ -3,6 +3,8 @@
 var urlBase = 'http://poopgroup6.com'; //url will be changed to whatever godaddy host url is
 var extension = "php";
 
+//this is a test
+
 var userId = 0;
 var firstName = "";
 var lastName = "";
