@@ -1,13 +1,13 @@
 
 /*CSS for filtered name list*/
 
-.nameList {
+#contactDiv .nameList {
 	width:300px;
 	
   box-sizing: border-box;
 }
 
-#myInput {
+#contactDiv #myInput {
   background-image: url('/css/searchicon.png');
   background-position: 10px 12px;
   background-repeat: no-repeat;
@@ -18,13 +18,13 @@
   margin-bottom: 12px;
 }
 
-#myUL {
+#contactDiv #myUL {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-#myUL li a {
+#contactDiv #myUL li a {
   border: 1px solid #ddd;
   margin-top: -1px; /* Prevent double borders */
   background-color: #f6f6f6;
@@ -35,18 +35,18 @@
   display: block
 }
 
-#myUL li a:hover:not(.header) {
+#contactDiv #myUL li a:hover:not(.header) {
   background-color: #eee;
 }
 
 /*CSS for modal Add form*/
-label{
+#contactDiv label{
   text-align:left; 
  /* display:inline-block;*/
 }
 
 
-input[type=text], select, textarea {
+#contactDiv input[type=text], #contactDiv select, #contactDiv textarea {
     width: auto;
     padding: 12px;
     border: 1px solid #ccc;
@@ -57,7 +57,7 @@ input[type=text], select, textarea {
     resize: vertical;
 }
 
-input[type=submit] {
+#contactDiv input[type=submit] {
     background-color: #4CAF50;
     color: white;
     padding: 12px 20px;
@@ -66,11 +66,11 @@ input[type=submit] {
     cursor: pointer;
 }
 
-input[type=submit]:hover {
+#contactDiv input[type=submit]:hover {
     background-color: #45a049;
 }
 
-.container {
+#contactDiv .container {
 	/*display: flex;*/
   justify-content: center;
   align-items: center;
@@ -79,17 +79,17 @@ input[type=submit]:hover {
     padding: 20px;
 }
 /*Form Div CSS*/
-form > div {
+#contactDiv form > div {
 	
 	display:inline-block;
   position: relative;
 }
-form > div > label {
+#contactDiv form > div > label {
 	
   position: absolute; 
    padding:20px;
 }
 
-form{
+#contactDiv form{
 	display: inline-block;
 }

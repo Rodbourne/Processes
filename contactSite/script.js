@@ -160,14 +160,22 @@ function doLogin()
 	
 }
 
+function placeholderLogin(){
+	document.getElementById("userName").innerHTML = firstName + " " + lastName;
+	document.getElementById("loginName").value = "";
+	document.getElementById("loginPassword").value = "";
+		
+	hideOrShow( "contactDiv", true);
+	hideOrShow( "loginDiv", false);
+}
+
 function doLogout()
 {
 	userId = 0;
 	firstName = "";
 	lastName = "";	
 
-	hideOrShow( "loggedInDiv", false);
-	hideOrShow( "accessUIDiv", false);
+	hideOrShow( "contactDiv", false);
 	hideOrShow( "loginDiv", true);
 }
 
