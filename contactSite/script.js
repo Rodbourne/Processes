@@ -1,6 +1,6 @@
 //This is the professors unedited js code for hte colours 
 
-var urlBase = 'http://LightingLover.com'; //url will be changed to whatever godaddy host url is
+var urlBase = 'http://poopgroup6.com'; //url will be changed to whatever godaddy host url is
 var extension = "php";
 
 //this is a test
@@ -47,12 +47,12 @@ function addContact()//added the contact not finished
     var City = document.getElementById("city").value;
     var State = document.getElementById("state").value;
     var Zipcode = document.getElementById("zip").value;
-    var UserID = document.getElementById("uID").value;
+    //var UserID = document.getElementById("uID").value;
 
  	var jsonPayload = '{"contactFname" : "' + First + '", "contactLName" : ' +
  	Last + '", "phone" : ' + Phone + '", "address" : ' + Address 
  	+ '", "city" : ' + City + '", "state" : ' + State + 
- 	+ '", "zipcode" : ' + Zipcode + '", "userID" : ' + UserID + '"}';
+ 	+ '", "zipcode" : ' + Zipcode + /*'", "userID" : ' + UserID +*/ '"}';
 
  	var url = urlBase + '/AddContact.' + extension;
 	
@@ -183,15 +183,6 @@ function hideOrShow( elementId, showState )
 	
 	document.getElementById( elementId ).style.visibility = vis;
 	document.getElementById( elementId ).style.display = dis;
-}
-
-//need to include a delete users function 
-function deleteUser(primaryKey, user)
-{
-    
-    
-    
-    
 }
 
 // deleting the contact
