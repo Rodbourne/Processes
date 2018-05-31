@@ -3,31 +3,33 @@
 
 <head>
 <link rel="stylesheet" type="text/css" href="loginCSS.css">
+<script src = "script.js"></script>
 </head>
 
 <body>
-<h1>Existence is pain; please log in</h1>
+<h1>Please log in</h1>
 <form action="action_page.php">
 
   <div class="container">
     <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Whomst the fuck are you?" name="uname" required>
+    <input type="text" placeholder="Username" name="uname" id="loginName"required>
 
     <label for="psw"><b>Password</b></label>
-    <input type="password" id="pswd" placeholder="Spell ICUP" name="psw" required><br><br>
-        <input type="checkbox" onclick="ShowPass()">Show me
+    <input type="password" id="pswd" placeholder="Password" name="psw" id="loginPassword"required><br><br>
+    <input type="checkbox" onclick="ShowPass()">Show me
 
-    <button type="submit">Login</button>
+    <button type="submit" onclick="doLogin()">Login</button>
+    
     <label>
       <input type="checkbox" checked="checked" name="remember"> Remember me
     </label>
   </div>
 
   <div class="container" style="background-color:#f1f1f1">
-    <button type="button" class="cancelbtn">Create Accountst'd've</button>
+    <button type="button" class="cancelbtn" id = "createAccount">Create Account</button>
     <span class="psw">Forgot <a href="#">password?</a></span>
   </div>
+  
 </form>
-
 </body>
 </html>

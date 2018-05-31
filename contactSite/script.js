@@ -1,6 +1,6 @@
 //This is the professors unedited js code for hte colours 
 
-var urlBase = 'http://poopgroup6.com'; //url will be changed to whatever godaddy host url is
+var urlBase = 'http://LightingLover.com'; //url will be changed to whatever godaddy host url is
 var extension = "php";
 
 //this is a test
@@ -17,6 +17,76 @@ function createUser()
     
     
     
+}
+
+function addContact()//added the contact not finished
+{
+    var First = document.getElementById("fname").value;
+    var Last = document.getElementById("lname").value;
+    var Nickname = document.getElementById("nname").value;
+    var Phone = document.getElementById("pnumber").value;
+    var Address = document.getElementById("addy").value;
+    var City = document.getElementById("city").value;
+    var State = document.getElementById("state").value;
+    var Zipcode = document.getElementById("zip").value;
+    var UserID = document.getElementById("uID").value;
+
+ 	var jsonPayload = '{"contactFname" : "' + First + '", "contactLName" : ' +
+ 	Last + '", "phone" : ' + Phone + '", "address" : ' + Address 
+ 	+ '", "city" : ' + City + '", "state" : ' + State + 
+ 	+ '", "zipcode" : ' + Zipcode + '", "userID" : ' + UserID + '"}';
+
+ 	var url = urlBase + '/AddContact.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				//Change id to w/e we end up making the div for placing the confirmation
+				//document.getElementById("placeholder").innerHTML = "Contact has been added";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		//Change id to w/e we end up making the div for placing the confirmation
+		//document.getElementById("placeholder").innerHTML = err.message;
+	}
+}
+
+function addColor() //need to remove later on
+{
+	var newColor = document.getElementById("colorText").value;
+	document.getElementById("colorAddResult").innerHTML = "";
+	
+	var jsonPayload = '{"color" : "' + newColor + '", "userId" : ' + userId + '}';
+	var url = urlBase + '/AddColor.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("colorAddResult").innerHTML = "Color has been added";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("colorAddResult").innerHTML = err.message;
+	}
+	
 }
 
 function doLogin()
@@ -95,44 +165,6 @@ function hideOrShow( elementId, showState )
 	
 	document.getElementById( elementId ).style.visibility = vis;
 	document.getElementById( elementId ).style.display = dis;
-}
-
-function addContact()//added the contact not finished
-{
-    var First = document.getElementById("firstname").value;
-    var Last = document.getElementById("lastname").value;
-    var Nickname = document.getElementById("nickname").value;
-    var Address = document.getElementById("address").value;
-    
-}
-
-function addColor() //need to remove later on
-{
-	var newColor = document.getElementById("colorText").value;
-	document.getElementById("colorAddResult").innerHTML = "";
-	
-	var jsonPayload = '{"color" : "' + newColor + '", "userId" : ' + userId + '}';
-	var url = urlBase + '/AddColor.' + extension;
-	
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("colorAddResult").innerHTML = err.message;
-	}
-	
 }
 
 //need to include a delete users function 
