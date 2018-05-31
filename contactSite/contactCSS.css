@@ -42,7 +42,7 @@
 /*CSS for modal Add form*/
 label{
   text-align:left; 
-  /*display:inline-block;*/
+ /* display:inline-block;*/
 }
 
 
@@ -55,8 +55,6 @@ input[type=text], select, textarea {
     margin-top: 6px;
     margin-bottom: 16px;
     resize: vertical;
-	display:inline-block;
-    position:inherit;
 }
 
 input[type=submit] {
@@ -73,8 +71,25 @@ input[type=submit]:hover {
 }
 
 .container {
+	/*display: flex;*/
+  justify-content: center;
+  align-items: center;
 	width: inherit; 
    background-color: #f2f2f2;
     padding: 20px;
 }
+/*Form Div CSS*/
+form > div {
+	
+	display:inline-block;
+  position: relative;
+}
+form > div > label {
+	
+  position: absolute; 
+   padding:20px;
+}
 
+form{
+	display: inline-block;
+}

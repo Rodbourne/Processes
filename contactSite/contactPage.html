@@ -41,24 +41,31 @@ class="w3-button">Add a contact</button>
       <div class="container"> 
 <!--The contact form -->
   <form action="/action_page.php">
-
-    <label for="fname">First Name</label>
+	<div>
     <input type="text" id="fname" name="firstname" placeholder="Your name..">
-
-    <label for="lname">Last Name</label>
+	</div>
+	<div>
     <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-    <label for="nname">Nickname</label>
+	</div>
+	<div>
     <input type="text" id="nname" name="nickname" placeholder="Your nickname..">
-
-   
-    <label for="pnumber">Phone Number</label>
-    <input type="text" id="pnumber" name="phonenumber" placeholder="Your phone number">
-       <label for="addy">Address</label>
-    <input type="text" id="addy" name="address" placeholder="Street address..">
-	 
-	  <label for="city">City</label>
+	</div>
+	<div>
+    
+	<input type="text" id="pnumber" name="phonenumber" placeholder="Your phone number">
+	
+	</div>
+       <div>
+	   
+	   <input type="text" id="addy" name="address" placeholder="Street address..">
+	   
+	   </div><br>
+	<div>
+	
 	 <input type="text" id="city" name="city" placeholder="City..">
-     <label for="state">State</label>
+	 
+	 </div>
+	 <div>
 	 <select id = "state" name="state">
 	<option value="AL">AL</option>
 	<option value="AK">AK</option>
@@ -112,14 +119,13 @@ class="w3-button">Add a contact</button>
 	<option value="WI">WI</option>
 	<option value="WY">WY</option>
 </select>
-	  <label for="zip">ZIP code</label>
-
+	  </div>
+	  <div>  
 <input type="text" id="zip" name="zipcode" maxlength="5" size="5" placeholder="ZIP..">
-
+	  </div>
     <input type="submit" value="Submit" onclick="addContact();">
   </form>
 </div>
-
     </div>
   </div>
 </div>
