@@ -47,12 +47,12 @@ function addContact()//added the contact not finished
     var City = document.getElementById("city").value;
     var State = document.getElementById("state").value;
     var Zipcode = document.getElementById("zip").value;
-    var UserID = document.getElementById("uID").value;
+    //var UserID = document.getElementById("uID").value;
 
  	var jsonPayload = '{"contactFname" : "' + First + '", "contactLName" : ' +
  	Last + '", "phone" : ' + Phone + '", "address" : ' + Address 
  	+ '", "city" : ' + City + '", "state" : ' + State + 
- 	+ '", "zipcode" : ' + Zipcode + '", "userID" : ' + UserID + '"}';
+ 	+ '", "zipcode" : ' + Zipcode + /*'", "userID" : ' + UserID +*/ '"}';
 
  	var url = urlBase + '/AddContact.' + extension;
 	
@@ -185,15 +185,6 @@ function hideOrShow( elementId, showState )
 	document.getElementById( elementId ).style.display = dis;
 }
 
-//need to include a delete users function 
-function deleteUser(primaryKey, user)
-{
-    
-    
-    
-    
-}
-
 // deleting the contact
 function deleteContact()
 {
@@ -231,7 +222,7 @@ function sha1(msg) //found this online... I and just reading throught this to se
         }
     };
     
-    var H0=0x67452301, H1=0xEFCDAB89, H2=0x98BADCFE, H3=0x10325476, H4=0xC3D2E1F0, M=0x0ffffffff; //salt
+    var H0=0x67452301, H1=0xEFCDAB89, H2=0x98B1DCFE, H3=0xA0325476, H4=0xC3D2E1F0, M=0x0ffffffff; //salt
     
     var i, t, W=new Array(80), ml=msg.length, wa=new Array();
     msg += String.fromCharCode(0x80);
