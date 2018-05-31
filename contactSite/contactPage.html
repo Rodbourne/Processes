@@ -4,6 +4,7 @@
 <link rel="stylesheet" type="text/css" href="contactCSS.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="script.js"></script>
 </head>
 <body>
 
@@ -12,7 +13,7 @@
 
 <h2>Contact Page</h2>
 
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+<input type="text" id="myInput" onkeyup="searchUsers()" placeholder="Search for names.." title="Type in a name">
 
 <ul id="myUL">
   <li><a href="#">Adelops Morrison</a></li>
@@ -25,25 +26,6 @@
   <li><a href="#">Christina</a></li>
   <li><a href="#">Cindy</a></li>
 </ul>
-
-<script>
-function myFunction() {
-    var input, filter, ul, li, a, i;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myUL");
-    li = ul.getElementsByTagName("li");
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("a")[0];
-        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-
-        }
-    }
-}
-</script>
 </div>
 <!-- Modal button containing contact form for adding-->
 <!-- Trigger/Open the Modal -->
