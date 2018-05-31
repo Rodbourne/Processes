@@ -78,6 +78,51 @@ function addContact()//added the contact not finished
 	}
 }
 
+// deleting the contact
+function deleteContact()
+{
+    var First = document.getElementById("fname").value;
+    var Last = document.getElementById("lname").value;
+    var Nickname = document.getElementById("nname").value;
+    var Phone = document.getElementById("pnumber").value;
+    var Address = document.getElementById("addy").value;
+    var City = document.getElementById("city").value;
+    var State = document.getElementById("state").value;
+    
+    var ContactID = document.getElementById("cID").value;
+    var UserID = document.getElementById("uID").value;
+    
+    var jsonPayload = '{"UserID" : "' + First + '", "contactLName" : ' +
+    Last + '", "phone" : ' + Phone + '", "address" : ' + Address
+    + '", "city" : ' + City + '", "state" : ' + State +
+    + '", "zipcode" : ' + Zipcode + /*'", "userID" : ' + UserID +*/ '"}';
+    
+    var url = urlBase + '/AddContact.' + extension;
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try
+    {
+        xhr.onreadystatechange = function()
+        {
+            if (this.readyState == 4 && this.status == 200)
+            {
+                //Change id to w/e we end up making the div for placing the confirmation
+                //document.getElementById("placeholder").innerHTML = "Contact has been added";
+            }
+        };
+        xhr.send(jsonPayload);
+    }
+    catch(err)
+    {
+        //Change id to w/e we end up making the div for placing the confirmation
+        //document.getElementById("placeholder").innerHTML = err.message;
+    }
+    
+    
+}
+
 function addColor() //need to remove later on
 {
 	var newColor = document.getElementById("colorText").value;
@@ -191,14 +236,6 @@ function hideOrShow( elementId, showState )
 	
 	document.getElementById( elementId ).style.visibility = vis;
 	document.getElementById( elementId ).style.display = dis;
-}
-
-// deleting the contact
-function deleteContact()
-{
-    
-    
-    
 }
 
 //the function to change the password to text to check the password
