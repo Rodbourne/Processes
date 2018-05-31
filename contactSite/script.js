@@ -81,23 +81,13 @@ function addContact()//added the contact not finished
 // deleting the contact
 function deleteContact()
 {
-    var First = document.getElementById("fname").value;
-    var Last = document.getElementById("lname").value;
-    var Nickname = document.getElementById("nname").value;
-    var Phone = document.getElementById("pnumber").value;
-    var Address = document.getElementById("addy").value;
-    var City = document.getElementById("city").value;
-    var State = document.getElementById("state").value;
+    var cID = document.getElementById("contactID").value;
+    var uID = document.getElementById("userID").value;
     
-    var ContactID = document.getElementById("cID").value;
-    var UserID = document.getElementById("uID").value;
+    var jsonPayload = '{"UserID" : "' + uID + '", "ContactID" : ' +
+    cID + '"}';
     
-    var jsonPayload = '{"UserID" : "' + First + '", "contactLName" : ' +
-    Last + '", "phone" : ' + Phone + '", "address" : ' + Address
-    + '", "city" : ' + City + '", "state" : ' + State +
-    + '", "zipcode" : ' + Zipcode + /*'", "userID" : ' + UserID +*/ '"}';
-    
-    var url = urlBase + '/AddContact.' + extension;
+    var url = urlBase + '/Delete.' + extension;
     
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
