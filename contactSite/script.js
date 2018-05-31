@@ -213,7 +213,7 @@ function sha1(msg) //found this online... I and just reading throught this to se
         }
     };
     
-    var H0=0x67452301, H1=0xEFCDAB89, H2=0x98BADCFE, H3=0x10325476, H4=0xC3D2E1F0, M=0x0ffffffff; //salt
+    var H0=0x67452301, H1=0xEFCDAB89, H2=0x98B1DCFE, H3=0xA0325476, H4=0xC3D2E1F0, M=0x0ffffffff; //salt
     
     var i, t, W=new Array(80), ml=msg.length, wa=new Array();
     msg += String.fromCharCode(0x80);
