@@ -14,6 +14,7 @@
 	else
 	{
 		$sql = "SELECT UserID FROM Users where Username='" . $inData["username"] . "' and Password='" . $inData["password"] . "'";
+		$data = "SELECT FirstName,LastName,Phone,Address,City,State,Zipcode,Nickname,ContactID FROM Contacts";
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0)
 		{
@@ -27,6 +28,19 @@
 		}
 		$conn->close();
 	}
+	$dataRes = $conn->query($data);
+	if ($dataRes->num_rows > 0)
+	{
+		while($userData = $result->fetch_assoc())
+		{
+			if($searchCount > 0)
+			{
+				$searchResults .= ",";
+			}
+			$searchCount++;
+			$searchResults .= '"' . $row["firstName"] . $row["lastName"] . $row["phone"] . $row["address"] . $row["city"] . $row["state"] . $row["zipcode"] . $row["nickName"] . $row["contactID"] . '"';
+		}
+	}
 
 	returnWithInfo($id);
 
@@ -35,10 +49,10 @@
 		return json_decode(file_get_contents('php://input'), true);
 	}
 
-	function returnWithInfo( $firstName, $lastName, $id )
+	function returnWithInfo($id, $userData)
 	{
 		//Error is there from professor, should return null
-		$retValue = '{"UserID":' . $id . '","error":""}';
+		$retValue = '{"UserID":' . $id . ", " . $userData . "," '"Error:"}';
 		sendResultInfoAsJson( $retValue );
 	}
 
