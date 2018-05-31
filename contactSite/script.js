@@ -1,6 +1,6 @@
 //This is the professors unedited js code for hte colours 
 
-var urlBase = 'http://LightingLover.com'; //url will be changed to whatever godaddy host url is
+var urlBase = 'http://poopgroup6.com'; //url will be changed to whatever godaddy host url is
 var extension = "php";
 
 //this is a test
@@ -19,6 +19,24 @@ function createUser()
     
 }
 
+function searchUsers()
+{
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+
+        }
+    }
+}
+
 function addContact()//added the contact not finished
 {
     var First = document.getElementById("fname").value;
@@ -29,12 +47,12 @@ function addContact()//added the contact not finished
     var City = document.getElementById("city").value;
     var State = document.getElementById("state").value;
     var Zipcode = document.getElementById("zip").value;
-    var UserID = document.getElementById("uID").value;
+    //var UserID = document.getElementById("uID").value;
 
  	var jsonPayload = '{"contactFname" : "' + First + '", "contactLName" : ' +
  	Last + '", "phone" : ' + Phone + '", "address" : ' + Address 
  	+ '", "city" : ' + City + '", "state" : ' + State + 
- 	+ '", "zipcode" : ' + Zipcode + '", "userID" : ' + UserID + '"}';
+ 	+ '", "zipcode" : ' + Zipcode + /*'", "userID" : ' + UserID +*/ '"}';
 
  	var url = urlBase + '/AddContact.' + extension;
 	
@@ -165,15 +183,6 @@ function hideOrShow( elementId, showState )
 	
 	document.getElementById( elementId ).style.visibility = vis;
 	document.getElementById( elementId ).style.display = dis;
-}
-
-//need to include a delete users function 
-function deleteUser(primaryKey, user)
-{
-    
-    
-    
-    
 }
 
 // deleting the contact
