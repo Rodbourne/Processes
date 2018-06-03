@@ -57,10 +57,21 @@
     resize: vertical;
 }
 
-#contactDiv input[type=submit] {
+#contactDiv input[type=submit]{
     background-color: #4CAF50;
     color: white;
     padding: 12px 20px;
+    border: none;
+    border-radius: 4 px;
+    cursor: pointer;
+}
+
+#contactDiv #logoutButton{
+    background-color: #4CAF50;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: white;
     border: none;
     border-radius: 4 px;
     cursor: pointer;

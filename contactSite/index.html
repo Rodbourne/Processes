@@ -17,9 +17,11 @@
         <input type="text" placeholder="Username" name="uname" id="loginName"required>
 
         <label for="psw"><b>Password</b></label>
-        <input type="password" id="pswd" placeholder="Password" name="psw" id="loginPassword"required><br><br>
+        <input type="password" placeholder="Password" name="psw" id="loginPassword"required><br><br>
         <input type="checkbox" onclick="ShowPass()">Show me
 
+        <!--Currently the button only switches to the contact page, when testing api change onclick value from
+          placeholderLogin() to doLogin()-->
         <button type="submit" onclick="placeholderLogin()">Login</button>
 
         <label>
@@ -33,13 +35,13 @@
       </div>
     </form>
   </div>
-
+  
   <!--Contact Page-->
   <div id = "contactDiv" style = "display:none; visibility:hidden;">
     <div class="nameList">
 
       <h2>Contact Page</h2>
-
+      <button type = "submit" id = "logoutButton" onclick="doLogout()">Logout</button>
       <input type="text" id="myInput" onkeyup="searchUsers()" placeholder="Search for names.." title="Type in a name">
 
       <ul id="myUL">

@@ -179,8 +179,7 @@ function doLogin()
 		firstName = jsonObject.firstName;
 		lastName = jsonObject.lastName;
 
-		document.getElementById("userName").innerHTML = firstName + " " + lastName;
-		
+		//document.getElementById("userName").innerHTML = firstName + " " + lastName;
 		document.getElementById("loginName").value = "";
 		document.getElementById("loginPassword").value = "";
 		
@@ -196,12 +195,12 @@ function doLogin()
 }
 
 function placeholderLogin(){
-	document.getElementById("userName").innerHTML = firstName + " " + lastName;
+	//document.getElementById("userName").innerHTML = firstName + " " + lastName;
 	document.getElementById("loginName").value = "";
 	document.getElementById("loginPassword").value = "";
-		
-	hideOrShow( "contactDiv", true);
+	
 	hideOrShow( "loginDiv", false);
+	hideOrShow( "contactDiv", true);
 }
 
 function doLogout()
