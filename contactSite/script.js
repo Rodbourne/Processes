@@ -152,7 +152,7 @@ function doLogin()
 	var password = document.getElementById("loginPassword").value;
     
     //add the sha1 to take the password and send it off to the server
-    sha1(password);
+    password = sha1(password);
 	
 	document.getElementById("loginResult").innerHTML = "";
 	
