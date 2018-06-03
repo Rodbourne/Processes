@@ -229,7 +229,7 @@ function hideOrShow( elementId, showState )
 
 //the function to change the password to text to check the password
 function ShowPass() {
-    var x = document.getElementById("pswd");
+    var x = document.getElementById("loginPassword");
     if (x.type == "password") {
         x.type = "text";
     } else {
