@@ -13,25 +13,23 @@
     <h1>Please log in</h1>
     <form>
       <div class="container">
-        <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Username" name="uname" id="loginName"required>
+        <b>Username</b>
+        <input type = "text" placeholder="Username" id="loginName">
 
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Password" name="psw" id="loginPassword"required><br><br>
+        <b>Password</b>
+        <input type = "password" placeholder="Password" id="loginPassword"><br><br>
         <input type="checkbox" onclick="ShowPass()">Show me
 
         <!--Currently the button only switches to the contact page, when testing api change onclick value from
           placeholderLogin() to doLogin()-->
-        <button type="submit" onclick="placeholderLogin()">Login</button>
-
-        <label>
-          <input type="checkbox" checked="checked" name="remember"> Remember me
-        </label>
+        <button type="submit" onclick="doLogin()">Login</button>
       </div>
 
       <div class="container" style="background-color:#f1f1f1">
         <button type="button" class="cancelbtn" id = "createAccount">Create Account</button>
         <span class="psw">Forgot <a href="#">password?</a></span>
+        <br>
+        <p id = "loginResult"></p>
       </div>
     </form>
   </div>

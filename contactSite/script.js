@@ -1,6 +1,6 @@
 //This is the professors unedited js code for hte colours 
 
-var urlBase = 'http://ameade.us'; //url will be changed to whatever godaddy host url is
+var urlBase = 'ameade.us'; //url will be changed to whatever godaddy host url is
 var extension = "php";
 
 //this is a test
@@ -8,6 +8,10 @@ var extension = "php";
 var userId = 0;
 var firstName = "";
 var lastName = "";
+var username = "";
+var data = "";
+var jsonDatabase = "";
+
 
 //create username and password
 function createUser()
@@ -15,8 +19,6 @@ function createUser()
     var userPick = document.getElementById("newUser").value; //taking up the user new name. it should check if the name is not taken yet
     var password = document.getElementById("newPassword").value; //this is a varible to take the password to up. Next step is to make sure the password meet critera (at least 8 character, upper, lower, number and symbol,
     password = sha1(password);
-    
-    
 }
 
 function searchUsers()
@@ -87,7 +89,7 @@ function deleteContact()
     var jsonPayload = '{"UserID" : "' + uID + '", "ContactID" : ' +
     cID + '"}';
     
-    var url = urlBase + '/Delete.' + extension;
+    var url = urlBase + '/Deletep.' + extension;
     
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
@@ -152,12 +154,12 @@ function doLogin()
 	var password = document.getElementById("loginPassword").value;
     
     //add the sha1 to take the password and send it off to the server
-   password = sha1(password);
+    password = sha1(password);
 	
 	document.getElementById("loginResult").innerHTML = "";
 	
 	var jsonPayload = '{"Username" : "' + login + '", "Password" : "' + password + '"}';
-	var url = urlBase + '/Login.' + extension;
+	var url = urlBase + '/Loginp.' + extension;
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
@@ -167,25 +169,23 @@ function doLogin()
 		xhr.send(jsonPayload);
 		
 		var jsonObject = JSON.parse( xhr.responseText );
-		
 		userId = jsonObject.id;
-		
+
 		if( userId < 1 )
 		{
 			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 			return;
 		}
 		
-		firstName = jsonObject.firstName;
-		lastName = jsonObject.lastName;
+		username = jsonObject.Username;
+		data = jsonObject.Data;
 
 		//document.getElementById("userName").innerHTML = firstName + " " + lastName;
 		document.getElementById("loginName").value = "";
-		document.getElementById("loginPassword").value = "";
-		
-		hideOrShow( "loggedInDiv", true);
-		hideOrShow( "accessUIDiv", true);
-		hideOrShow( "loginDiv", false);
+        document.getElementById("loginPassword").value = "";
+    
+        hideOrShow( "loginDiv", false);
+        hideOrShow( "contactDiv", true);
 	}
 	catch(err)
 	{
