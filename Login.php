@@ -5,6 +5,8 @@
 	$id = 0;
 	$firstName = "";
 	$lastName = "";
+	$searchResults = "";
+	$searchCount = 0;
 
 	$conn = new mysqli("localhost", "root_suvrat", "cop4331!", "Contacts_Suvrat");
 	if ($conn->connect_error)
@@ -14,12 +16,27 @@
 	else
 	{
 		$sql = "SELECT UserID FROM Users where Username='" . $inData["username"] . "' and Password='" . $inData["password"] . "'";
+		$data = "SELECT FirstName,LastName,Phone,Address,City,State,Zipcode,Nickname,ContactID FROM Contacts";
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0)
 		{
 			$row = $result->fetch_assoc();
 			$id = $row["userID"];
 			sendResultInfoAsJson("Success! User Logged In");
+			
+			$dataRes = $conn->query($data);
+			if ($dataRes->num_rows > 0)
+			{
+				while($userData = $result->fetch_assoc())
+				{
+					if($searchCount > 0)
+					{
+						$searchResults .= ",";
+					}
+					$searchCount++;
+					$searchResults .= '"' . $row["firstName"] . $row["lastName"] . $row["phone"] . $row["address"] . $row["city"] . $row["state"] . $row["zipcode"] . $row["nickName"] . $row["contactID"] . '"';
+				}
+			}
 		}
 		else
 		{
@@ -27,7 +44,6 @@
 		}
 		$conn->close();
 	}
-
 	returnWithInfo($id);
 
 	function getRequestInfo()
@@ -35,10 +51,10 @@
 		return json_decode(file_get_contents('php://input'), true);
 	}
 
-	function returnWithInfo( $firstName, $lastName, $id )
+	function returnWithInfo($id, $userData)
 	{
 		//Error is there from professor, should return null
-		$retValue = '{"UserID":' . $id . '","error":""}';
+		$retValue = '{"UserID":' . $id . ", " . $userData . "," '"Error:"}';
 		sendResultInfoAsJson( $retValue );
 	}
 

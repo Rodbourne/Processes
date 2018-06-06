@@ -11,22 +11,22 @@
 	$conn = new mysqli("localhost", "root_suvrat", "cop4331!", "Contacts_Suvrat");
 	if ($conn->connect_error)
 	{
-		sendResultInfoAsJson( $conn->connect_error );
+		sendResultInfoAsJson($conn->connect_error);
 	}
 	else
 	{
-		$sql = "SELECT FirstName,LastName FROM Contacts WHERE FirstName LIKE '%" . $firstName . "%'" "AND WHERE LastName LIKE '%" . $lastName . "%'"
+		$sql = "SELECT FirstName,LastName,Phone,Address,City,State,Zipcode,Nickname FROM Contacts WHERE FirstName LIKE '%" . $firstName . "%'" "AND WHERE LastName LIKE '%" . $lastName . "%'"
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0)
 		{
 			while($row = $result->fetch_assoc())
 			{
-				if( $searchCount > 0 )
+				if($searchCount > 0)
 				{
 					$searchResults .= ",";
 				}
 				$searchCount++;
-				$searchResults .= '"' . $row["firstName"] . $row["lastName"] . '"';
+				$searchResults .= '"' . $row["firstName"] . $row["lastName"] . $row["phone"] . $row["address"] . $row["city"] . $row["state"] . $row["zipcode"] . $row["nickName"] . '"';
 			}
 		}
 		else
