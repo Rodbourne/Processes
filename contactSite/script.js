@@ -14,7 +14,7 @@ function createUser()
 {
     var userPick = document.getElementById("newUser").value; //taking up the user new name. it should check if the name is not taken yet
     var password = document.getElementById("newPassword").value; //this is a varible to take the password to up. Next step is to make sure the password meet critera (at least 8 character, upper, lower, number and symbol,
-    
+    password = sha1(password);
     
     
 }
@@ -47,14 +47,14 @@ function addContact()//added the contact not finished
     var City = document.getElementById("city").value;
     var State = document.getElementById("state").value;
     var Zipcode = document.getElementById("zip").value;
-    //var UserID = document.getElementById("uID").value;
+    var UserID = document.getElementById("uID").value;
 
- 	var jsonPayload = '{"contactFname" : "' + First + '", "contactLName" : ' +
- 	Last + '", "phone" : ' + Phone + '", "address" : ' + Address 
- 	+ '", "city" : ' + City + '", "state" : ' + State + 
- 	+ '", "zipcode" : ' + Zipcode + /*'", "userID" : ' + UserID +*/ '"}';
+ 	var jsonPayload = '{"FirstName" : "' + First + '", "LastName" : ' +
+ 	Last + '", "Phone" : ' + Phone + '", "Address" : ' + Address
+ 	+ '", "City" : ' + City + '", "State" : ' + State + '", "Nickname" : ' + Nickname
+ 	+ '", "Zipcode" : ' + Zipcode + '", "UserID" : ' + UserID + '"}';
 
- 	var url = urlBase + '/AddContact.' + extension;
+ 	var url = urlBase + '/AddContactp.' + extension;
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -99,7 +99,7 @@ function deleteContact()
             if (this.readyState == 4 && this.status == 200)
             {
                 //Change id to w/e we end up making the div for placing the confirmation
-                //document.getElementById("placeholder").innerHTML = "Contact has been added";
+                //document.getElementById("placeholder").innerHTML = "Contact has been deleted";
             }
         };
         xhr.send(jsonPayload);
@@ -113,34 +113,34 @@ function deleteContact()
     
 }
 
-function addColor() //need to remove later on
-{
-	var newColor = document.getElementById("colorText").value;
-	document.getElementById("colorAddResult").innerHTML = "";
-	
-	var jsonPayload = '{"color" : "' + newColor + '", "userId" : ' + userId + '}';
-	var url = urlBase + '/AddColor.' + extension;
-	
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("colorAddResult").innerHTML = err.message;
-	}
-	
-}
+//function addColor() //need to remove later on
+//{
+//    var newColor = document.getElementById("colorText").value;
+//    document.getElementById("colorAddResult").innerHTML = "";
+//
+//    var jsonPayload = '{"color" : "' + newColor + '", "userId" : ' + userId + '}';
+//    var url = urlBase + '/AddColor.' + extension;
+//
+//    var xhr = new XMLHttpRequest();
+//    xhr.open("POST", url, true);
+//    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+//    try
+//    {
+//        xhr.onreadystatechange = function()
+//        {
+//            if (this.readyState == 4 && this.status == 200)
+//            {
+//                document.getElementById("colorAddResult").innerHTML = "Color has been added";
+//            }
+//        };
+//        xhr.send(jsonPayload);
+//    }
+//    catch(err)
+//    {
+//        document.getElementById("colorAddResult").innerHTML = err.message;
+//    }
+//
+//}
 
 function doLogin()
 {
@@ -152,11 +152,11 @@ function doLogin()
 	var password = document.getElementById("loginPassword").value;
     
     //add the sha1 to take the password and send it off to the server
-    password = sha1(password);
+   password = sha1(password);
 	
 	document.getElementById("loginResult").innerHTML = "";
 	
-	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
+	var jsonPayload = '{"Username" : "' + login + '", "Password" : "' + password + '"}';
 	var url = urlBase + '/Login.' + extension;
 	
 	var xhr = new XMLHttpRequest();
@@ -237,7 +237,7 @@ function ShowPass() {
     }
 }
 
-function sha1(msg) //found this online... I and just reading throught this to see if this could work.
+function sha1(msg)
 //it have a 20 character salt added to the hash before sending this to the server
 {
     //function used for later use
@@ -298,46 +298,46 @@ function sha1(msg) //found this online... I and just reading throught this to se
     return tohex(H0)+tohex(H1)+tohex(H2)+tohex(H3)+tohex(H4);
 }
 
-function searchColor() //emebbed in the html i think
-{
-	var srch = document.getElementById("searchText").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
-	
-	var colorList = document.getElementById("colorList");
-	colorList.innerHTML = "";
-	
-	var jsonPayload = '{"search" : "' + srch + '"}';
-	var url = urlBase + '/SearchColors.' + extension;
-	
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				hideOrShow( "colorList", true );
-				
-				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
-				var jsonObject = JSON.parse( xhr.responseText );
-				
-				var i;
-				for( i=0; i<jsonObject.results.length; i++ )
-				{
-					var opt = document.createElement("option");
-					opt.text = jsonObject.results[i];
-					opt.value = "";
-					colorList.options.add(opt);
-				}
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
-	}
-	
-}
+//function searchColor() //emebbed in the html i think
+//{
+//    var srch = document.getElementById("searchText").value;
+//    document.getElementById("colorSearchResult").innerHTML = "";
+//
+//    var colorList = document.getElementById("colorList");
+//    colorList.innerHTML = "";
+//
+//    var jsonPayload = '{"search" : "' + srch + '"}';
+//    var url = urlBase + '/SearchColors.' + extension;
+//
+//    var xhr = new XMLHttpRequest();
+//    xhr.open("POST", url, true);
+//    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+//    try
+//    {
+//        xhr.onreadystatechange = function()
+//        {
+//            if (this.readyState == 4 && this.status == 200)
+//            {
+//                hideOrShow( "colorList", true );
+//
+//                document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
+//                var jsonObject = JSON.parse( xhr.responseText );
+//
+//                var i;
+//                for( i=0; i<jsonObject.results.length; i++ )
+//                {
+//                    var opt = document.createElement("option");
+//                    opt.text = jsonObject.results[i];
+//                    opt.value = "";
+//                    colorList.options.add(opt);
+//                }
+//            }
+//        };
+//        xhr.send(jsonPayload);
+//    }
+//    catch(err)
+//    {
+//        document.getElementById("colorSearchResult").innerHTML = err.message;
+//    }
+//
+//}
