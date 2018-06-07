@@ -47,15 +47,27 @@ function createUser()
     }
 }
 
-function listContacts(){
+function displayInfo(x)
+{
+    console.log(x);
+}
+
+function listContacts()
+{
     var ul = document.getElementById("myUL");
     console.log(data[0]);
     for( var i = 0; i < data.length; i++ )
     {
       createList = data[i].split(",");
       var li = document.createElement("li");
+      li.onmousedown = 'displayInfo(this)';
+      li.value = i;
+      li.addEventListener("click", function()
+      {
+            displayInfo(this.value);
+      });
       var a = document.createElement('a');
-      a.href="#";
+      a.href = '#';
       a.appendChild(document.createTextNode(createList[2] + ",\t"
         + createList[3]));
       li.appendChild(a);
