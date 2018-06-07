@@ -54,8 +54,12 @@ function listContacts(){
     {
       createList = data[i].split(",");
       var li = document.createElement("li");
-      li.appendChild(document.createTextNode(createList[2] + ",\t"
+      var a = document.createElement('a');
+      a.href="#";
+      a.appendChild(document.createTextNode(createList[2] + ",\t"
         + createList[3]));
+      li.appendChild(a);
+      //li.style = 'border: 1px solid #ddd; margin-top: -1px; /* Prevent double borders */ background-color: #f6f6f6; padding: 12px;text-decoration: none;font-size: 18px;color: black;display: block;'
       ul.appendChild(li);
   }
 }
