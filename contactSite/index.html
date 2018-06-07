@@ -54,9 +54,10 @@
       <button type = "submit" id = "logoutButton" onclick="doLogout()">Logout</button>
       <input type="text" id="myInput" onkeyup="searchUsers()" placeholder="Search for names.." title="Type in a name">
 
-      <ul id="myUL" style = "display:none; visibility:hidden;">
+      <ul id="myUL">
       </ul>
-      <button onclick = "hideOrShow('myUL', true)"></button>
+
+      <button type="button" class="dContact">Display Contacts</button>
     </div>
     <!-- Modal button containing contact form for adding-->
     <!-- Trigger/Open the Modal -->
