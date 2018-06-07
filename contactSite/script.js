@@ -16,41 +16,31 @@ var jsonDatabase = "";
 //create username and password
 function createUser()
 {
-    var userPick = document.getElementById("newUser").value; //taking up the user new name. it should check if the name is not taken yet
-    var password = document.getElementById("newPassword").value; //this is a varible to take the password to up. Next step is to make sure the password meet critera (at least 8 character, upper, lower, number and symbol,
-    password = sha1(password);
+    var newUser = document.getElementById("newUser").value; //taking up the user new name. it should check if the name is not taken yet
+    var newPassword = document.getElementById("newPassword").value; //this is a varible to take the password to up. Next step is to make sure the password meet critera (at least 8 character, upper, lower, number and symbol,
+    newPassword = sha1(newPassword);
 
-    var jsonPayload = '{"Username" : "' + login + '", "Password" : "' + password + '"}';
-    var url = urlBase + '/Loginp.' + extension;
+    var jsonPayload = '{"Username" : "' + newUser + '", "Password" : "' + newPassword + '"}';
+    var url = '/addUser.' + extension;
     
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url, false);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
     try
     {
-        xhr.send(jsonPayload);
-        
-        var jsonObject = JSON.parse( xhr.responseText );
-        userId = jsonObject.id;
-
-        if( userId < 1 )
+        xhr.onreadystatechange = function() 
         {
-            document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
-            return;
-        }
-        
-        username = jsonObject.Username;
-        data = jsonObject.Data;
-
-        //document.getElementById("userName").innerHTML = firstName + " " + lastName;
-        document.getElementById("loginName").value = "";
-        document.getElementById("loginPassword").value = "";
-    
-        hideOrShow( "loginDiv", false);
-        hideOrShow( "contactDiv", true);
+            if (this.readyState == 4 && this.status == 200) 
+            {
+                //Change id to w/e we end up making the div for placing the confirmation
+                document.getElementById("loginResult").innerHTML = "User has been added";
+            }
+        };
+        xhr.send(jsonPayload);
     }
     catch(err)
     {
+        //Change id to w/e we end up making the div for placing the confirmation
         document.getElementById("loginResult").innerHTML = err.message;
     }
 }
@@ -83,14 +73,14 @@ function addContact()//added the contact not finished
     var City = document.getElementById("city").value;
     var State = document.getElementById("state").value;
     var Zipcode = document.getElementById("zip").value;
-    var UserID = document.getElementById("uID").value;
+    var UserID = userId;
 
  	var jsonPayload = '{"FirstName" : "' + First + '", "LastName" : ' +
  	Last + '", "Phone" : ' + Phone + '", "Address" : ' + Address
  	+ '", "City" : ' + City + '", "State" : ' + State + '", "Nickname" : ' + Nickname
  	+ '", "Zipcode" : ' + Zipcode + '", "UserID" : ' + UserID + '"}';
 
- 	var url = urlBase + '/AddContactp.' + extension;
+ 	var url = '/AddContactp.' + extension;
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
