@@ -46,15 +46,14 @@ function createUser()
 }
 
 function listContacts(){
-    for( var i = 0; i < data.length; i++){
-        createList[i] = data[i].split(",");
-    }
     var ul = document.getElementById("myUL");
-    for( var i = 0; i < createList.length; i++ )
+    console.log(data[0]);
+    for( var i = 0; i < data.length; i++ )
     {
-      var o = createList[i];
+      createList = data[i].split(",");
       var li = document.createElement("li");
-      li.appendChild(document.createTextNode(o[2] + ",\t" + o[3]));
+      li.appendChild(document.createTextNode(createList[2] + ",\t" 
+        + createList[3]));
       ul.appendChild(li);
   }    
 }
