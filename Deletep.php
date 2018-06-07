@@ -18,11 +18,11 @@
 		{
       $data = "DELETE FROM Contacts WHERE UserID='" . $inData["UserID"] . "' AND ContactID='" . $inData["ContactID"] . "'";
       $x = $conn->query($data);
-			returnWithInfo($userID, $contactID, "Contact Deleted");
+			returnWithInfo("Contact Deleted");
 		}
 		else
 		{
-			returnWithError( "No Records Found" );
+			returnWithError("No Records Found");
 		}
 		$conn->close();
 	}
@@ -44,9 +44,9 @@
 		sendResultInfoAsJson( $retValue );
 	}
 
-	function returnWithInfo($userID, $contactID, $str)
+	function returnWithInfo($str)
 	{
-		$retValue = '{"id":' . $userID . ',"Contact":' . $contactID . '"Error":"' . $str . '"}';
+		$retValue = json_encode($str);
 		sendResultInfoAsJson($retValue);
 	}
 

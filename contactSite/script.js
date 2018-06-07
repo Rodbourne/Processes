@@ -16,43 +16,45 @@ var jsonDatabase = "";
 //create username and password
 function createUser()
 {
-    var userPick = document.getElementById("newUser").value; //taking up the user new name. it should check if the name is not taken yet
-    var password = document.getElementById("newPassword").value; //this is a varible to take the password to up. Next step is to make sure the password meet critera (at least 8 character, upper, lower, number and symbol,
-    password = sha1(password);
+    var newUser = document.getElementById("newUser").value; //taking up the user new name. it should check if the name is not taken yet
+    var newPassword = document.getElementById("newPassword").value; //this is a varible to take the password to up. Next step is to make sure the password meet critera (at least 8 character, upper, lower, number and symbol,
+    newPassword = sha1(newPassword);
 
-    var jsonPayload = '{"Username" : "' + login + '", "Password" : "' + password + '"}';
-    var url = urlBase + '/Loginp.' + extension;
+    var jsonPayload = '{"Username" : "' + newUser + '", "Password" : "' + newPassword + '"}';
+    var url = '/addUser.' + extension;
     
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url, false);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
     try
     {
-        xhr.send(jsonPayload);
-        
-        var jsonObject = JSON.parse( xhr.responseText );
-        userId = jsonObject.id;
-
-        if( userId < 1 )
+        xhr.onreadystatechange = function() 
         {
-            document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
-            return;
-        }
-        
-        username = jsonObject.Username;
-        data = jsonObject.Data;
-
-        //document.getElementById("userName").innerHTML = firstName + " " + lastName;
-        document.getElementById("loginName").value = "";
-        document.getElementById("loginPassword").value = "";
-    
-        hideOrShow( "loginDiv", false);
-        hideOrShow( "contactDiv", true);
+            if (this.readyState == 4 && this.status == 200) 
+            {
+                //Change id to w/e we end up making the div for placing the confirmation
+                document.getElementById("loginResult").innerHTML = "User has been added";
+            }
+        };
+        xhr.send(jsonPayload);
     }
     catch(err)
     {
+        //Change id to w/e we end up making the div for placing the confirmation
         document.getElementById("loginResult").innerHTML = err.message;
     }
+}
+
+function listContacts(){
+    var createList = JSON.parse(data);
+    var ul = document.getElementById("myUL");
+    for( var i = 0; i < data.length; i++ )
+    {
+       var o = data[i];
+       var li = document.createElement("li");
+       li.appendChild(document.createTextNode(o.FirstName , o.LastName));
+       ul.appendChild(li);
+   }
 }
 
 function searchUsers()
@@ -83,14 +85,15 @@ function addContact()//added the contact not finished
     var City = document.getElementById("city").value;
     var State = document.getElementById("state").value;
     var Zipcode = document.getElementById("zip").value;
-    var UserID = document.getElementById("uID").value;
+    var UserID = userId;
 
- 	var jsonPayload = '{"FirstName" : "' + First + '", "LastName" : ' +
- 	Last + '", "Phone" : ' + Phone + '", "Address" : ' + Address
- 	+ '", "City" : ' + City + '", "State" : ' + State + '", "Nickname" : ' + Nickname
- 	+ '", "Zipcode" : ' + Zipcode + '", "UserID" : ' + UserID + '"}';
+ 	var jsonPayload = '{"UserID" : "' + UserID + '", "FirstName" : "' + First + '", "LastName" : "' +
+ 	Last + '", "Phone" : "' + Phone + '", "Address" : "' + Address
+ 	+ '", "City" : "' + City + '", "State" : "' + State + '", "Zipcode" : "' + 
+    Zipcode + '", "Nickname" : "' + Nickname + '"}';
 
- 	var url = urlBase + '/AddContactp.' + extension;
+    console.log(jsonPayload);
+ 	var url = '/AddContactp.' + extension;
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -102,7 +105,7 @@ function addContact()//added the contact not finished
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				//Change id to w/e we end up making the div for placing the confirmation
-				//document.getElementById("placeholder").innerHTML = "Contact has been added";
+				document.getElementById("contactResult").innerHTML = "Contact has been added";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -110,7 +113,7 @@ function addContact()//added the contact not finished
 	catch(err)
 	{
 		//Change id to w/e we end up making the div for placing the confirmation
-		//document.getElementById("placeholder").innerHTML = err.message;
+		document.getElementById("contactResult").innerHTML = err.message;
 	}
 }
 
@@ -144,39 +147,10 @@ function deleteContact()
     {
         //Change id to w/e we end up making the div for placing the confirmation
         //document.getElementById("placeholder").innerHTML = err.message;
-    }
-    
+    } 
     
 }
 
-//function addColor() //need to remove later on
-//{
-//    var newColor = document.getElementById("colorText").value;
-//    document.getElementById("colorAddResult").innerHTML = "";
-//
-//    var jsonPayload = '{"color" : "' + newColor + '", "userId" : ' + userId + '}';
-//    var url = urlBase + '/AddColor.' + extension;
-//
-//    var xhr = new XMLHttpRequest();
-//    xhr.open("POST", url, true);
-//    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-//    try
-//    {
-//        xhr.onreadystatechange = function()
-//        {
-//            if (this.readyState == 4 && this.status == 200)
-//            {
-//                document.getElementById("colorAddResult").innerHTML = "Color has been added";
-//            }
-//        };
-//        xhr.send(jsonPayload);
-//    }
-//    catch(err)
-//    {
-//        document.getElementById("colorAddResult").innerHTML = err.message;
-//    }
-//
-//}
 
 function doLogin()
 {
@@ -193,8 +167,9 @@ function doLogin()
 	document.getElementById("loginResult").innerHTML = "";
 	
 	var jsonPayload = '{"Username" : "' + login + '", "Password" : "' + password + '"}';
-	var url = urlBase + '/Loginp.' + extension;
+	var url = /*urlBase +*/ '/Loginp.' + extension;
 	
+    console.log(jsonPayload);
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -203,17 +178,17 @@ function doLogin()
 		xhr.send(jsonPayload);
 		console.log("sent correctly.");
 		var jsonObject = JSON.parse( xhr.responseText );
-        console.log("retrieved correctly");
-		userId = jsonObject.id;
-
+        console.log(jsonObject);
+		userId = jsonObject.UserID;
+        console.log(userId);
 		if( userId < 1 )
 		{
 			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 			return;
 		}
 		
-		username = jsonObject.Username;
-		data = jsonObject.Data;
+		//username = jsonObject.Username;
+		//data = jsonObject.Data;
 
 		//document.getElementById("userName").innerHTML = firstName + " " + lastName;
 		document.getElementById("loginName").value = "";
@@ -226,6 +201,7 @@ function doLogin()
 	{
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
+    listContacts();
 	
 }
 
@@ -332,47 +308,3 @@ function sha1(msg)
     }
     return tohex(H0)+tohex(H1)+tohex(H2)+tohex(H3)+tohex(H4);
 }
-
-//function searchColor() //emebbed in the html i think
-//{
-//    var srch = document.getElementById("searchText").value;
-//    document.getElementById("colorSearchResult").innerHTML = "";
-//
-//    var colorList = document.getElementById("colorList");
-//    colorList.innerHTML = "";
-//
-//    var jsonPayload = '{"search" : "' + srch + '"}';
-//    var url = urlBase + '/SearchColors.' + extension;
-//
-//    var xhr = new XMLHttpRequest();
-//    xhr.open("POST", url, true);
-//    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-//    try
-//    {
-//        xhr.onreadystatechange = function()
-//        {
-//            if (this.readyState == 4 && this.status == 200)
-//            {
-//                hideOrShow( "colorList", true );
-//
-//                document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
-//                var jsonObject = JSON.parse( xhr.responseText );
-//
-//                var i;
-//                for( i=0; i<jsonObject.results.length; i++ )
-//                {
-//                    var opt = document.createElement("option");
-//                    opt.text = jsonObject.results[i];
-//                    opt.value = "";
-//                    colorList.options.add(opt);
-//                }
-//            }
-//        };
-//        xhr.send(jsonPayload);
-//    }
-//    catch(err)
-//    {
-//        document.getElementById("colorSearchResult").innerHTML = err.message;
-//    }
-//
-//}
