@@ -1,5 +1,5 @@
 $(document).ready(function(){
     $("button.dContact").click(function(){
-        $("#myUL").toggle();
+        $("ul.myUL").toggle();
     });
 });
