@@ -1,6 +1,6 @@
 //This is the professors unedited js code for hte colours 
 
-var urlBase = 'http://LightingLover.com'; //url will be changed to whatever godaddy host url is
+var urlBase = 'ameade.us'; //url will be changed to whatever godaddy host url is
 var extension = "php";
 
 //this is a test
@@ -8,15 +8,69 @@ var extension = "php";
 var userId = 0;
 var firstName = "";
 var lastName = "";
+var username = "";
+var data = "";
+var jsonDatabase = "";
+
 
 //create username and password
 function createUser()
 {
     var userPick = document.getElementById("newUser").value; //taking up the user new name. it should check if the name is not taken yet
     var password = document.getElementById("newPassword").value; //this is a varible to take the password to up. Next step is to make sure the password meet critera (at least 8 character, upper, lower, number and symbol,
+    password = sha1(password);
+
+    var jsonPayload = '{"Username" : "' + login + '", "Password" : "' + password + '"}';
+    var url = urlBase + '/Loginp.' + extension;
     
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, false);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try
+    {
+        xhr.send(jsonPayload);
+        
+        var jsonObject = JSON.parse( xhr.responseText );
+        userId = jsonObject.id;
+
+        if( userId < 1 )
+        {
+            document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+            return;
+        }
+        
+        username = jsonObject.Username;
+        data = jsonObject.Data;
+
+        //document.getElementById("userName").innerHTML = firstName + " " + lastName;
+        document.getElementById("loginName").value = "";
+        document.getElementById("loginPassword").value = "";
     
-    
+        hideOrShow( "loginDiv", false);
+        hideOrShow( "contactDiv", true);
+    }
+    catch(err)
+    {
+        document.getElementById("loginResult").innerHTML = err.message;
+    }
+}
+
+function searchUsers()
+{
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+
+        }
+    }
 }
 
 function addContact()//added the contact not finished
@@ -31,12 +85,12 @@ function addContact()//added the contact not finished
     var Zipcode = document.getElementById("zip").value;
     var UserID = document.getElementById("uID").value;
 
- 	var jsonPayload = '{"contactFname" : "' + First + '", "contactLName" : ' +
- 	Last + '", "phone" : ' + Phone + '", "address" : ' + Address 
- 	+ '", "city" : ' + City + '", "state" : ' + State + 
- 	+ '", "zipcode" : ' + Zipcode + '", "userID" : ' + UserID + '"}';
+ 	var jsonPayload = '{"FirstName" : "' + First + '", "LastName" : ' +
+ 	Last + '", "Phone" : ' + Phone + '", "Address" : ' + Address
+ 	+ '", "City" : ' + City + '", "State" : ' + State + '", "Nickname" : ' + Nickname
+ 	+ '", "Zipcode" : ' + Zipcode + '", "UserID" : ' + UserID + '"}';
 
- 	var url = urlBase + '/AddContact.' + extension;
+ 	var url = urlBase + '/AddContactp.' + extension;
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -60,34 +114,69 @@ function addContact()//added the contact not finished
 	}
 }
 
-function addColor() //need to remove later on
+// deleting the contact
+function deleteContact()
 {
-	var newColor = document.getElementById("colorText").value;
-	document.getElementById("colorAddResult").innerHTML = "";
-	
-	var jsonPayload = '{"color" : "' + newColor + '", "userId" : ' + userId + '}';
-	var url = urlBase + '/AddColor.' + extension;
-	
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("colorAddResult").innerHTML = err.message;
-	}
-	
+    var cID = document.getElementById("contactID").value;
+    var uID = document.getElementById("userID").value;
+    
+    var jsonPayload = '{"UserID" : "' + uID + '", "ContactID" : ' +
+    cID + '"}';
+    
+    var url = urlBase + '/Deletep.' + extension;
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try
+    {
+        xhr.onreadystatechange = function()
+        {
+            if (this.readyState == 4 && this.status == 200)
+            {
+                //Change id to w/e we end up making the div for placing the confirmation
+                //document.getElementById("placeholder").innerHTML = "Contact has been deleted";
+            }
+        };
+        xhr.send(jsonPayload);
+    }
+    catch(err)
+    {
+        //Change id to w/e we end up making the div for placing the confirmation
+        //document.getElementById("placeholder").innerHTML = err.message;
+    }
+    
+    
 }
+
+//function addColor() //need to remove later on
+//{
+//    var newColor = document.getElementById("colorText").value;
+//    document.getElementById("colorAddResult").innerHTML = "";
+//
+//    var jsonPayload = '{"color" : "' + newColor + '", "userId" : ' + userId + '}';
+//    var url = urlBase + '/AddColor.' + extension;
+//
+//    var xhr = new XMLHttpRequest();
+//    xhr.open("POST", url, true);
+//    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+//    try
+//    {
+//        xhr.onreadystatechange = function()
+//        {
+//            if (this.readyState == 4 && this.status == 200)
+//            {
+//                document.getElementById("colorAddResult").innerHTML = "Color has been added";
+//            }
+//        };
+//        xhr.send(jsonPayload);
+//    }
+//    catch(err)
+//    {
+//        document.getElementById("colorAddResult").innerHTML = err.message;
+//    }
+//
+//}
 
 function doLogin()
 {
@@ -99,12 +188,12 @@ function doLogin()
 	var password = document.getElementById("loginPassword").value;
     
     //add the sha1 to take the password and send it off to the server
-    sha1(password);
+    password = sha1(password);
 	
 	document.getElementById("loginResult").innerHTML = "";
 	
-	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
-	var url = urlBase + '/Login.' + extension;
+	var jsonPayload = '{"Username" : "' + login + '", "Password" : "' + password + '"}';
+	var url = urlBase + '/Loginp.' + extension;
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
@@ -112,28 +201,26 @@ function doLogin()
 	try
 	{
 		xhr.send(jsonPayload);
-		
+		console.log("sent correctly.");
 		var jsonObject = JSON.parse( xhr.responseText );
-		
+        console.log("retrieved correctly");
 		userId = jsonObject.id;
-		
+
 		if( userId < 1 )
 		{
 			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 			return;
 		}
 		
-		firstName = jsonObject.firstName;
-		lastName = jsonObject.lastName;
+		username = jsonObject.Username;
+		data = jsonObject.Data;
 
-		document.getElementById("userName").innerHTML = firstName + " " + lastName;
-		
+		//document.getElementById("userName").innerHTML = firstName + " " + lastName;
 		document.getElementById("loginName").value = "";
-		document.getElementById("loginPassword").value = "";
-		
-		hideOrShow( "loggedInDiv", true);
-		hideOrShow( "accessUIDiv", true);
-		hideOrShow( "loginDiv", false);
+        document.getElementById("loginPassword").value = "";
+    
+        hideOrShow( "loginDiv", false);
+        hideOrShow( "contactDiv", true);
 	}
 	catch(err)
 	{
@@ -142,14 +229,22 @@ function doLogin()
 	
 }
 
+function placeholderLogin(){
+	//document.getElementById("userName").innerHTML = firstName + " " + lastName;
+	document.getElementById("loginName").value = "";
+	document.getElementById("loginPassword").value = "";
+	
+	hideOrShow( "loginDiv", false);
+	hideOrShow( "contactDiv", true);
+}
+
 function doLogout()
 {
 	userId = 0;
 	firstName = "";
 	lastName = "";	
 
-	hideOrShow( "loggedInDiv", false);
-	hideOrShow( "accessUIDiv", false);
+	hideOrShow( "contactDiv", false);
 	hideOrShow( "loginDiv", true);
 }
 
@@ -167,26 +262,9 @@ function hideOrShow( elementId, showState )
 	document.getElementById( elementId ).style.display = dis;
 }
 
-//need to include a delete users function 
-function deleteUser(primaryKey, user)
-{
-    
-    
-    
-    
-}
-
-// deleting the contact
-function deleteContact()
-{
-    
-    
-    
-}
-
 //the function to change the password to text to check the password
 function ShowPass() {
-    var x = document.getElementById("pswd");
+    var x = document.getElementById("loginPassword");
     if (x.type == "password") {
         x.type = "text";
     } else {
@@ -194,7 +272,7 @@ function ShowPass() {
     }
 }
 
-function sha1(msg) //found this online... I and just reading throught this to see if this could work.
+function sha1(msg)
 //it have a 20 character salt added to the hash before sending this to the server
 {
     //function used for later use
@@ -255,46 +333,46 @@ function sha1(msg) //found this online... I and just reading throught this to se
     return tohex(H0)+tohex(H1)+tohex(H2)+tohex(H3)+tohex(H4);
 }
 
-function searchColor() //emebbed in the html i think
-{
-	var srch = document.getElementById("searchText").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
-	
-	var colorList = document.getElementById("colorList");
-	colorList.innerHTML = "";
-	
-	var jsonPayload = '{"search" : "' + srch + '"}';
-	var url = urlBase + '/SearchColors.' + extension;
-	
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				hideOrShow( "colorList", true );
-				
-				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
-				var jsonObject = JSON.parse( xhr.responseText );
-				
-				var i;
-				for( i=0; i<jsonObject.results.length; i++ )
-				{
-					var opt = document.createElement("option");
-					opt.text = jsonObject.results[i];
-					opt.value = "";
-					colorList.options.add(opt);
-				}
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
-	}
-	
-}
+//function searchColor() //emebbed in the html i think
+//{
+//    var srch = document.getElementById("searchText").value;
+//    document.getElementById("colorSearchResult").innerHTML = "";
+//
+//    var colorList = document.getElementById("colorList");
+//    colorList.innerHTML = "";
+//
+//    var jsonPayload = '{"search" : "' + srch + '"}';
+//    var url = urlBase + '/SearchColors.' + extension;
+//
+//    var xhr = new XMLHttpRequest();
+//    xhr.open("POST", url, true);
+//    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+//    try
+//    {
+//        xhr.onreadystatechange = function()
+//        {
+//            if (this.readyState == 4 && this.status == 200)
+//            {
+//                hideOrShow( "colorList", true );
+//
+//                document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
+//                var jsonObject = JSON.parse( xhr.responseText );
+//
+//                var i;
+//                for( i=0; i<jsonObject.results.length; i++ )
+//                {
+//                    var opt = document.createElement("option");
+//                    opt.text = jsonObject.results[i];
+//                    opt.value = "";
+//                    colorList.options.add(opt);
+//                }
+//            }
+//        };
+//        xhr.send(jsonPayload);
+//    }
+//    catch(err)
+//    {
+//        document.getElementById("colorSearchResult").innerHTML = err.message;
+//    }
+//
+//}

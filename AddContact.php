@@ -19,7 +19,7 @@
 	}
 	else
 	{                              /* Data fields */
-		$sql = "insert into Contacts (UserID,FirstName,LastName,Phone,State,City,Address,Zipcode,Nickname) VALUES (" . $userId . ",'" . $contactFName . ",'" . $contactLName . ",'" . $contactPhone . ",'"
+		$sql = "INSERT INTO Contacts (UserID,FirstName,LastName,Phone,State,City,Address,Zipcode,Nickname) VALUES (" . $userId . ",'" . $contactFName . ",'" . $contactLName . ",'" . $contactPhone . ",'"
      . $contactState . ",'" . $contactCity .  ",'" . $contactAddress . ",'" $contactZipcode ",'" . $contactNickName ."')";
 		if( $result = $conn->query($sql) != TRUE )
 		{
