@@ -1,3 +1,9 @@
+$(document).ready(function(){
+    $("button.dContact").click(function(){
+        $("#myUL").toggle();
+    });
+});
+
 //This is the professors unedited js code for hte colours
 
 var urlBase = 'ameade.us'; //url will be changed to whatever godaddy host url is
@@ -310,9 +316,3 @@ function sha1(msg)
     }
     return tohex(H0)+tohex(H1)+tohex(H2)+tohex(H3)+tohex(H4);
 }
-
-$(document).ready(function(){
-    $("button.dContact").click(function(){
-        $("#myUL").toggle();
-    });
-});
