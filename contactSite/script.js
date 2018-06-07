@@ -19,6 +19,40 @@ function createUser()
     var userPick = document.getElementById("newUser").value; //taking up the user new name. it should check if the name is not taken yet
     var password = document.getElementById("newPassword").value; //this is a varible to take the password to up. Next step is to make sure the password meet critera (at least 8 character, upper, lower, number and symbol,
     password = sha1(password);
+
+    var jsonPayload = '{"Username" : "' + login + '", "Password" : "' + password + '"}';
+    var url = urlBase + '/Loginp.' + extension;
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, false);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try
+    {
+        xhr.send(jsonPayload);
+        
+        var jsonObject = JSON.parse( xhr.responseText );
+        userId = jsonObject.id;
+
+        if( userId < 1 )
+        {
+            document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+            return;
+        }
+        
+        username = jsonObject.Username;
+        data = jsonObject.Data;
+
+        //document.getElementById("userName").innerHTML = firstName + " " + lastName;
+        document.getElementById("loginName").value = "";
+        document.getElementById("loginPassword").value = "";
+    
+        hideOrShow( "loginDiv", false);
+        hideOrShow( "contactDiv", true);
+    }
+    catch(err)
+    {
+        document.getElementById("loginResult").innerHTML = err.message;
+    }
 }
 
 function searchUsers()
@@ -167,8 +201,9 @@ function doLogin()
 	try
 	{
 		xhr.send(jsonPayload);
-		
+		console.log("sent correctly.");
 		var jsonObject = JSON.parse( xhr.responseText );
+        console.log("retrieved correctly");
 		userId = jsonObject.id;
 
 		if( userId < 1 )
