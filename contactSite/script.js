@@ -193,7 +193,7 @@ function doLogin()
 	document.getElementById("loginResult").innerHTML = "";
 	
 	var jsonPayload = '{"Username" : "' + login + '", "Password" : "' + password + '"}';
-	var url = urlBase + '/Loginp.' + extension;
+	var url = /*urlBase +*/ '/Loginp.' + extension;
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);

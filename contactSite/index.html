@@ -77,33 +77,15 @@
           class="w3-button w3-display-topright">&times;</span>
           <div class="container"> 
             <!--The contact form -->
-            <form action="/action_page.php">
+                <input type="text" id="fname" placeholder="Your name..">
+                <input type="text" id="lname" placeholder="Your last name..">
+                <input type="text" id="nname" placeholder="Your nickname..">
+                <input type="text" id="pnumber" placeholder="Your phone number">
+                <input type="text" id="addy" placeholder="Street address..">
+                <br>
+                <input type="text" id="city" placeholder="City..">
               <div>
-                <input type="text" id="fname" name="firstname" placeholder="Your name..">
-              </div>
-              <div>
-                <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-              </div>
-              <div>
-                <input type="text" id="nname" name="nickname" placeholder="Your nickname..">
-              </div>
-              <div>
-
-                <input type="text" id="pnumber" name="phonenumber" placeholder="Your phone number">
-
-              </div>
-              <div>
-
-                <input type="text" id="addy" name="address" placeholder="Street address..">
-
-              </div><br>
-              <div>
-
-                <input type="text" id="city" name="city" placeholder="City..">
-
-              </div>
-              <div>
-                <select id = "state" name="state">
+                <select id = "state">
                   <option value="AL">AL</option>
                   <option value="AK">AK</option>
                   <option value="AZ">AZ</option>
@@ -157,11 +139,8 @@
                   <option value="WY">WY</option>
                 </select>
               </div>
-              <div>  
-                <input type="text" id="zip" name="zipcode" maxlength="5" size="5" placeholder="ZIP..">
-              </div>
-              <input type="submit" value="Submit" onclick="addContact();">
-            </form>
+                <input type="text" id="zip" maxlength="5" size="5" placeholder="ZIP..">
+              <input type="button" value="Submit" onclick="addContact();">
           </div>
         </div>
       </div>
