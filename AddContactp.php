@@ -19,14 +19,13 @@
 	else
 	{
 		$sql = "insert INTO Contacts (UserID, FirstName, LastName, Phone, Address, City, State, Zipcode, Nickname) VALUES (' $userId ', ' $firstName  ', '  $lastName  ', '  $phone  ', '  $address  ', ' $city  ', '  $state  ', '  $zipcode  ', '  $nickname  ')";
+		returnWithError("Contact Added");
 		if( $result = $conn->query($sql) != TRUE )
 		{
 			returnWithError($conn->error);
 		}
 		$conn->close();
 	}
-
-	returnWithError("");
 
 	function getRequestInfo()
 	{
@@ -41,7 +40,7 @@
 
 	function returnWithError($err)
 	{
-		$retValue = '{"error":"' . $err . '"}';
+		$retValue = json_encode($err);
 		sendResultInfoAsJson($retValue);
 	}
 
