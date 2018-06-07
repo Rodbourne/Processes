@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="loginCSS.css">
+  <link rel="stylesheet" href="contactCSS.css">
+  <script type="text/javascript" src = "script.js"></script>
+</head>
+
+<body>
+  <!--Log In Page-->
+  <div id = "loginDiv">
+    <h1>Please log in</h1>
+    <div class="container">
+      <b>Username</b>
+      <input type = "text" placeholder="Username" id="loginName">
+
+      <b>Password</b>
+      <input type = "password" placeholder="Password" id="loginPassword"><br><br>
+      <input type="checkbox" onclick="ShowPass()">Show me
+        <!--Currently the button only switches to the contact page, when testing api change onclick value from
+          placeholderLogin() to doLogin()-->
+      <button type="submit" onclick="doLogin()">Login</button>
+      <div class="container" style="background-color:#f1f1f1">
+        <button onclick="document.getElementById('id01').style.display='block'"
+        class="cancelbtn" id = "createAccount">Create an account</button>
+          <div id="id01" class="w3-modal">
+            <div class="w3-modal-content">
+              <div style = "background-color:#f2f2f2;" class="w3-container">
+                <span onclick="document.getElementById('id01').style.display='none'" 
+                class="w3-button w3-display-topright">&times;</span>
+                <div class="container"> 
+                  <!--The contact form -->
+                  <input type="text" id="newUser" placeholder="Make a username..">
+                  <input type="text" id="newPassword" placeholder="Make a password..">
+                  <button type = "button" id = "createUserButton" onclick = "createUser()">Create Account</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <br>
+    <p id = "loginResult"></p>
+  </div>
+  
+  <!--Contact Page-->
+  <div id = "contactDiv" style = "display:none; visibility:hidden;">
+    <div class="nameList">
+
+      <h2>Contact Page</h2>
+      <button type = "submit" id = "logoutButton" onclick="doLogout()">Logout</button>
+      <input type="text" id="myInput" onkeyup="searchUsers()" placeholder="Search for names.." title="Type in a name">
+
+      <ul id="myUL">
+        <li><a href="#">Adelops Morrison</a></li>
+        <li><a href="#">Alex Rubies</a></li>
+
+        <li><a href="#">Bill Kilgore</a></li>
+        <li><a href="#">Bob</a></li>
+
+        <li><a href="#">Calvin</a></li>
+        <li><a href="#">Christina</a></li>
+        <li><a href="#">Cindy</a></li>
+      </ul>
+    </div>
+    <!-- Modal button containing contact form for adding-->
+    <!-- Trigger/Open the Modal -->
+    <button onclick="document.getElementById('id01').style.display='block'"
+    class="w3-button">Add a contact</button>
+
+    <!-- The Modal -->
+    <div id="id01" class="w3-modal">
+      <div class="w3-modal-content">
+        <div style = "background-color:#f2f2f2;" class="w3-container">
+          <span onclick="document.getElementById('id01').style.display='none'" 
+          class="w3-button w3-display-topright">&times;</span>
+          <div class="container"> 
+            <!--The contact form -->
+            <form action="/action_page.php">
+              <div>
+                <input type="text" id="fname" name="firstname" placeholder="Your name..">
+              </div>
+              <div>
+                <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+              </div>
+              <div>
+                <input type="text" id="nname" name="nickname" placeholder="Your nickname..">
+              </div>
+              <div>
+
+                <input type="text" id="pnumber" name="phonenumber" placeholder="Your phone number">
+
+              </div>
+              <div>
+
+                <input type="text" id="addy" name="address" placeholder="Street address..">
+
+              </div><br>
+              <div>
+
+                <input type="text" id="city" name="city" placeholder="City..">
+
+              </div>
+              <div>
+                <select id = "state" name="state">
+                  <option value="AL">AL</option>
+                  <option value="AK">AK</option>
+                  <option value="AZ">AZ</option>
+                  <option value="AR">AR</option>
+                  <option value="CA">CA</option>
+                  <option value="CO">CO</option>
+                  <option value="CT">CT</option>
+                  <option value="DE">DE</option>
+                  <option value="DC">DC</option>
+                  <option value="FL">FL</option>
+                  <option value="GA">GA</option>
+                  <option value="HI">HI</option>
+                  <option value="ID">ID</option>
+                  <option value="IL">IL</option>
+                  <option value="IN">IN</option>
+                  <option value="IA">IA</option>
+                  <option value="KS">KS</option>
+                  <option value="KY">KY</option>
+                  <option value="LA">LA</option>
+                  <option value="ME">ME</option>
+                  <option value="MD">MD</option>
+                  <option value="MA">MA</option>
+                  <option value="MI">MI</option>
+                  <option value="MN">MN</option>
+                  <option value="MS">MS</option>
+                  <option value="MO">MO</option>
+                  <option value="MT">MT</option>
+                  <option value="NE">NE</option>
+                  <option value="NV">NV</option>
+                  <option value="NH">NH</option>
+                  <option value="NJ">NJ</option>
+                  <option value="NM">NM</option>
+                  <option value="NY">NY</option>
+                  <option value="NC">NC</option>
+                  <option value="ND">ND</option>
+                  <option value="OH">OH</option>
+                  <option value="OK">OK</option>
+                  <option value="OR">OR</option>
+                  <option value="PA">PA</option>
+                  <option value="RI">RI</option>
+                  <option value="SC">SC</option>
+                  <option value="SD">SD</option>
+                  <option value="TN">TN</option>
+                  <option value="TX">TX</option>
+                  <option value="UT">UT</option>
+                  <option value="VT">VT</option>
+                  <option value="VA">VA</option>
+                  <option value="WA">WA</option>
+                  <option value="WV">WV</option>
+                  <option value="WI">WI</option>
+                  <option value="WY">WY</option>
+                </select>
+              </div>
+              <div>  
+                <input type="text" id="zip" name="zipcode" maxlength="5" size="5" placeholder="ZIP..">
+              </div>
+              <input type="submit" value="Submit" onclick="addContact();">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
