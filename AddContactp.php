@@ -1,6 +1,5 @@
 <?php
 	$inData = getRequestInfo();
-
 	$firstName = $inData["FirstName"];
 	$userId = $inData["UserID"];
   $lastName =  $inData["LastName"];
@@ -10,7 +9,6 @@
   $state =  $inData["State"];
   $zipcode =  $inData["Zipcode"];
   $nickname =  $inData["Nickname"];
-
 	$conn = new mysqli("localhost", "root_suvrat", "cop4331!", "Contacts_Suvrat");
 	if ($conn->connect_error || $userId == null)
 	{
@@ -26,22 +24,18 @@
 		}
 		$conn->close();
 	}
-
 	function getRequestInfo()
 	{
 		return json_decode(file_get_contents('php://input'), true);
 	}
-
 	function sendResultInfoAsJson($obj)
 	{
 		header('Content-type: application/json');
 		echo $obj;
 	}
-
 	function returnWithError($err)
 	{
 		$retValue = json_encode($err);
 		sendResultInfoAsJson($retValue);
 	}
-
 ?>

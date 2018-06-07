@@ -45,6 +45,18 @@ function createUser()
     }
 }
 
+function listContacts(){
+    var createList = JSON.parse(data);
+    var ul = document.getElementById("myUL");
+    for( var i = 0; i < data.length; i++ )
+    {
+       var o = data[i];
+       var li = document.createElement("li");
+       li.appendChild(document.createTextNode(o.FirstName , o.LastName));
+       ul.appendChild(li);
+   }
+}
+
 function searchUsers()
 {
     var input, filter, ul, li, a, i;
@@ -75,11 +87,12 @@ function addContact()//added the contact not finished
     var Zipcode = document.getElementById("zip").value;
     var UserID = userId;
 
- 	var jsonPayload = '{"FirstName" : "' + First + '", "LastName" : ' +
- 	Last + '", "Phone" : ' + Phone + '", "Address" : ' + Address
- 	+ '", "City" : ' + City + '", "State" : ' + State + '", "Nickname" : ' + Nickname
- 	+ '", "Zipcode" : ' + Zipcode + '", "UserID" : ' + UserID + '"}';
+ 	var jsonPayload = '{"UserID" : "' + UserID + '", "FirstName" : "' + First + '", "LastName" : "' +
+ 	Last + '", "Phone" : "' + Phone + '", "Address" : "' + Address
+ 	+ '", "City" : "' + City + '", "State" : "' + State + '", "Zipcode" : "' + 
+    Zipcode + '", "Nickname" : "' + Nickname + '"}';
 
+    console.log(jsonPayload);
  	var url = '/AddContactp.' + extension;
 	
 	var xhr = new XMLHttpRequest();
@@ -134,8 +147,7 @@ function deleteContact()
     {
         //Change id to w/e we end up making the div for placing the confirmation
         //document.getElementById("placeholder").innerHTML = err.message;
-    }
-    
+    } 
     
 }
 
@@ -167,16 +179,16 @@ function doLogin()
 		console.log("sent correctly.");
 		var jsonObject = JSON.parse( xhr.responseText );
         console.log(jsonObject);
-		userId = jsonObject.id;
-
+		userId = jsonObject.UserID;
+        console.log(userId);
 		if( userId < 1 )
 		{
 			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 			return;
 		}
 		
-		username = jsonObject.Username;
-		data = jsonObject.Data;
+		//username = jsonObject.Username;
+		//data = jsonObject.Data;
 
 		//document.getElementById("userName").innerHTML = firstName + " " + lastName;
 		document.getElementById("loginName").value = "";
@@ -189,6 +201,7 @@ function doLogin()
 	{
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
+    listContacts();
 	
 }
 
