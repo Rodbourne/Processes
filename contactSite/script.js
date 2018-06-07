@@ -102,7 +102,7 @@ function addContact()//added the contact not finished
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				//Change id to w/e we end up making the div for placing the confirmation
-				//document.getElementById("placeholder").innerHTML = "Contact has been added";
+				document.getElementById("contactResult").innerHTML = "Contact has been added";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -110,7 +110,7 @@ function addContact()//added the contact not finished
 	catch(err)
 	{
 		//Change id to w/e we end up making the div for placing the confirmation
-		//document.getElementById("placeholder").innerHTML = err.message;
+		document.getElementById("contactResult").innerHTML = err.message;
 	}
 }
 
