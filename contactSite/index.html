@@ -4,7 +4,9 @@
 <head>
   <link rel="stylesheet" href="loginCSS.css">
   <link rel="stylesheet" href="contactCSS.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <script type="text/javascript" src = "script.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -27,9 +29,9 @@
           <div id="id01" class="w3-modal">
             <div class="w3-modal-content">
               <div style = "background-color:#f2f2f2;" class="w3-container">
-                <span onclick="document.getElementById('id01').style.display='none'" 
+                <span onclick="document.getElementById('id01').style.display='none'"
                 class="w3-button w3-display-topright">&times;</span>
-                <div class="container"> 
+                <div class="container">
                   <!--The contact form -->
                   <input type="text" id="newUser" placeholder="Make a username..">
                   <input type="text" id="newPassword" placeholder="Make a password..">
@@ -43,7 +45,7 @@
     <br>
     <p id = "loginResult"></p>
   </div>
-  
+
   <!--Contact Page-->
   <div id = "contactDiv" style = "display:none; visibility:hidden;">
     <div class="nameList">
@@ -52,58 +54,45 @@
       <button type = "submit" id = "logoutButton" onclick="doLogout()">Logout</button>
       <input type="text" id="myInput" onkeyup="searchUsers()" placeholder="Search for names.." title="Type in a name">
 
-      <ul id="myUL">
-        <li><a href="#">Adelops Morrison</a></li>
-        <li><a href="#">Alex Rubies</a></li>
+    <ul id="myUL" style = "display:none; visibility:hidden;">
+    </ul>
 
-        <li><a href="#">Bill Kilgore</a></li>
-        <li><a href="#">Bob</a></li>
-
-        <li><a href="#">Calvin</a></li>
-        <li><a href="#">Christina</a></li>
-        <li><a href="#">Cindy</a></li>
-      </ul>
+      <button type="button" class="dContact" onclick="displayContacts()">Display Contacts</button>
+      <button type="button" class="delContact" onclick="deleteContact()">Delete Contact</button>
+    </div>
+    <div id="infoDisplayed">
+      <p id="Firstname"></p>
+      <p id="Lastname"></p>
+      <p id="Nickname"></p>
+      <p id="Phonenumber"></p>
+      <p id="Address"></p>
+      <p id="City"></p>
+      <p id="State"></p>
+      <p id="Zipcode"></p>
     </div>
     <!-- Modal button containing contact form for adding-->
     <!-- Trigger/Open the Modal -->
-    <button onclick="document.getElementById('id01').style.display='block'"
-    class="w3-button">Add a contact</button>
+
+    <button onclick="document.getElementById('id02').style.display='block'"
+        class="cancelbtn" id = "addContact">Add a contact</button>
 
     <!-- The Modal -->
-    <div id="id01" class="w3-modal">
+    <div id="id02" class="w3-modal">
       <div class="w3-modal-content">
         <div style = "background-color:#f2f2f2;" class="w3-container">
-          <span onclick="document.getElementById('id01').style.display='none'" 
+          <span onclick="document.getElementById('id02').style.display='none'"
           class="w3-button w3-display-topright">&times;</span>
-          <div class="container"> 
+          <div class="container">
             <!--The contact form -->
-            <form action="/action_page.php">
+                <input type="text" id="fname" placeholder="Your name..">
+                <input type="text" id="lname" placeholder="Your last name..">
+                <input type="text" id="nname" placeholder="Your nickname..">
+                <input type="text" id="pnumber" placeholder="Your phone number">
+                <input type="text" id="addy" placeholder="Street address..">
+                <br>
+                <input type="text" id="city" placeholder="City..">
               <div>
-                <input type="text" id="fname" name="firstname" placeholder="Your name..">
-              </div>
-              <div>
-                <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-              </div>
-              <div>
-                <input type="text" id="nname" name="nickname" placeholder="Your nickname..">
-              </div>
-              <div>
-
-                <input type="text" id="pnumber" name="phonenumber" placeholder="Your phone number">
-
-              </div>
-              <div>
-
-                <input type="text" id="addy" name="address" placeholder="Street address..">
-
-              </div><br>
-              <div>
-
-                <input type="text" id="city" name="city" placeholder="City..">
-
-              </div>
-              <div>
-                <select id = "state" name="state">
+                <select id = "state">
                   <option value="AL">AL</option>
                   <option value="AK">AK</option>
                   <option value="AZ">AZ</option>
@@ -157,16 +146,13 @@
                   <option value="WY">WY</option>
                 </select>
               </div>
-              <div>  
-                <input type="text" id="zip" name="zipcode" maxlength="5" size="5" placeholder="ZIP..">
-              </div>
-              <input type="submit" value="Submit" onclick="addContact();">
-            </form>
+                <input type="text" id="zip" maxlength="5" size="5" placeholder="ZIP..">
+              <input type="button" value="Submit" onclick="addContact();">
           </div>
         </div>
       </div>
     </div>
+    <p id = "contactResult"></p>
   </div>
-
 </body>
 </html>

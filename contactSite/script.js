@@ -1,4 +1,5 @@
-//This is the professors unedited js code for hte colours 
+
+//This is the professors unedited js code for hte colours
 
 var urlBase = 'ameade.us'; //url will be changed to whatever godaddy host url is
 var extension = "php";
@@ -11,48 +12,107 @@ var lastName = "";
 var username = "";
 var data = "";
 var jsonDatabase = "";
-
-
+var createList = "";
+var display = false;
+var lastClickedForDelete = "";
 //create username and password
 function createUser()
 {
-    var userPick = document.getElementById("newUser").value; //taking up the user new name. it should check if the name is not taken yet
-    var password = document.getElementById("newPassword").value; //this is a varible to take the password to up. Next step is to make sure the password meet critera (at least 8 character, upper, lower, number and symbol,
-    password = sha1(password);
+    var newUser = document.getElementById("newUser").value; //taking up the user new name. it should check if the name is not taken yet
+    var newPassword = document.getElementById("newPassword").value; //this is a varible to take the password to up. Next step is to make sure the password meet critera (at least 8 character, upper, lower, number and symbol,
+    newPassword = sha1(newPassword);
 
-    var jsonPayload = '{"Username" : "' + login + '", "Password" : "' + password + '"}';
-    var url = urlBase + '/Loginp.' + extension;
-    
+    var jsonPayload = '{"Username" : "' + newUser + '", "Password" : "' + newPassword + '"}';
+    var url = '/addUser.' + extension;
+
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url, false);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
     try
     {
-        xhr.send(jsonPayload);
-        
-        var jsonObject = JSON.parse( xhr.responseText );
-        userId = jsonObject.id;
-
-        if( userId < 1 )
+        xhr.onreadystatechange = function()
         {
-            document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
-            return;
-        }
-        
-        username = jsonObject.Username;
-        data = jsonObject.Data;
-
-        //document.getElementById("userName").innerHTML = firstName + " " + lastName;
-        document.getElementById("loginName").value = "";
-        document.getElementById("loginPassword").value = "";
-    
-        hideOrShow( "loginDiv", false);
-        hideOrShow( "contactDiv", true);
+            if (this.readyState == 4 && this.status == 200)
+            {
+                //Change id to w/e we end up making the div for placing the confirmation
+                document.getElementById("loginResult").innerHTML = "User has been added";
+            }
+        };
+        xhr.send(jsonPayload);
     }
     catch(err)
     {
+        //Change id to w/e we end up making the div for placing the confirmation
         document.getElementById("loginResult").innerHTML = err.message;
     }
+}
+
+function displayInfo(x)
+{
+    lastClickedForDelete = "" + x;
+    var disp = data[lastClickedForDelete].split(",");
+    document.getElementById("Firstname").innerHTML = disp[2];
+    document.getElementById("Lastname").innerHTML = disp[3];
+    document.getElementById("Nickname").innerHTML = disp[9];
+    document.getElementById("Phonenumber").innerHTML = disp[4];
+    document.getElementById("Address").innerHTML = disp[5];
+    document.getElementById("City").innerHTML = disp[6];
+    document.getElementById("State").innerHTML = disp[7];
+    document.getElementById("Zipcode").innerHTML = disp[8];
+}
+
+function deleteContact(){
+    var contactInformation = data[lastClickedForDelete].split(",");
+    var contactID = contactInformation[10];
+
+    var jsonPayload = '{"UserID" : "' + userId + '", "ContactID" : "' + contactID + '"}';
+    console.log(jsonPayload);
+    var url = '/Deletep.' + extension;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, false);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try
+    {
+        xhr.onreadystatechange = function()
+        {
+            if (this.readyState == 4 && this.status == 200)
+            {
+                //Change id to w/e we end up making the div for placing the confirmation
+                document.getElementById("contactResult").innerHTML = "Contact has been deleted";
+            }
+        };
+        xhr.send(jsonPayload);
+    }
+    catch(err)
+    {
+        //Change id to w/e we end up making the div for placing the confirmation
+        document.getElementById("contactResult").innerHTML = err.message;
+    }
+}
+
+function listContacts()
+{
+    var ul = document.getElementById("myUL");
+    console.log(data[0]);
+    for( var i = 0; i < data.length; i++ )
+    {
+      createList = data[i].split(",");
+      var li = document.createElement("li");
+      li.onmousedown = 'displayInfo(this)';
+      li.value = i;
+      li.addEventListener("click", function()
+      {
+            displayInfo(this.value);
+      });
+      var a = document.createElement('a');
+      a.href = '#';
+      a.appendChild(document.createTextNode(createList[2] + ",\t"
+        + createList[3]));
+      li.appendChild(a);
+      //li.style = 'border: 1px solid #ddd; margin-top: -1px; /* Prevent double borders */ background-color: #f6f6f6; padding: 12px;text-decoration: none;font-size: 18px;color: black;display: block;'
+      ul.appendChild(li);
+  }
 }
 
 function searchUsers()
@@ -83,26 +143,27 @@ function addContact()//added the contact not finished
     var City = document.getElementById("city").value;
     var State = document.getElementById("state").value;
     var Zipcode = document.getElementById("zip").value;
-    var UserID = document.getElementById("uID").value;
+    var UserID = userId;
 
- 	var jsonPayload = '{"FirstName" : "' + First + '", "LastName" : ' +
- 	Last + '", "Phone" : ' + Phone + '", "Address" : ' + Address
- 	+ '", "City" : ' + City + '", "State" : ' + State + '", "Nickname" : ' + Nickname
- 	+ '", "Zipcode" : ' + Zipcode + '", "UserID" : ' + UserID + '"}';
+ 	var jsonPayload = '{"UserID" : "' + UserID + '", "FirstName" : "' + First + '", "LastName" : "' +
+ 	Last + '", "Phone" : "' + Phone + '", "Address" : "' + Address
+ 	+ '", "City" : "' + City + '", "State" : "' + State + '", "Zipcode" : "' +
+    Zipcode + '", "Nickname" : "' + Nickname + '"}';
 
- 	var url = urlBase + '/AddContactp.' + extension;
-	
+    console.log(jsonPayload);
+ 	var url = '/AddContactp.' + extension;
+
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
-		xhr.onreadystatechange = function() 
+		xhr.onreadystatechange = function()
 		{
-			if (this.readyState == 4 && this.status == 200) 
+			if (this.readyState == 4 && this.status == 200)
 			{
 				//Change id to w/e we end up making the div for placing the confirmation
-				//document.getElementById("placeholder").innerHTML = "Contact has been added";
+				document.getElementById("contactResult").innerHTML = "Contact has been added";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -110,91 +171,29 @@ function addContact()//added the contact not finished
 	catch(err)
 	{
 		//Change id to w/e we end up making the div for placing the confirmation
-		//document.getElementById("placeholder").innerHTML = err.message;
+		document.getElementById("contactResult").innerHTML = err.message;
 	}
 }
 
-// deleting the contact
-function deleteContact()
-{
-    var cID = document.getElementById("contactID").value;
-    var uID = document.getElementById("userID").value;
-    
-    var jsonPayload = '{"UserID" : "' + uID + '", "ContactID" : ' +
-    cID + '"}';
-    
-    var url = urlBase + '/Deletep.' + extension;
-    
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    try
-    {
-        xhr.onreadystatechange = function()
-        {
-            if (this.readyState == 4 && this.status == 200)
-            {
-                //Change id to w/e we end up making the div for placing the confirmation
-                //document.getElementById("placeholder").innerHTML = "Contact has been deleted";
-            }
-        };
-        xhr.send(jsonPayload);
-    }
-    catch(err)
-    {
-        //Change id to w/e we end up making the div for placing the confirmation
-        //document.getElementById("placeholder").innerHTML = err.message;
-    }
-    
-    
-}
-
-//function addColor() //need to remove later on
-//{
-//    var newColor = document.getElementById("colorText").value;
-//    document.getElementById("colorAddResult").innerHTML = "";
-//
-//    var jsonPayload = '{"color" : "' + newColor + '", "userId" : ' + userId + '}';
-//    var url = urlBase + '/AddColor.' + extension;
-//
-//    var xhr = new XMLHttpRequest();
-//    xhr.open("POST", url, true);
-//    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-//    try
-//    {
-//        xhr.onreadystatechange = function()
-//        {
-//            if (this.readyState == 4 && this.status == 200)
-//            {
-//                document.getElementById("colorAddResult").innerHTML = "Color has been added";
-//            }
-//        };
-//        xhr.send(jsonPayload);
-//    }
-//    catch(err)
-//    {
-//        document.getElementById("colorAddResult").innerHTML = err.message;
-//    }
-//
-//}
 
 function doLogin()
 {
 	userId = 0;
 	firstName = "";
 	lastName = "";
-	
+
 	var login = document.getElementById("loginName").value;
 	var password = document.getElementById("loginPassword").value;
-    
+
     //add the sha1 to take the password and send it off to the server
     password = sha1(password);
-	
+
 	document.getElementById("loginResult").innerHTML = "";
-	
+
 	var jsonPayload = '{"Username" : "' + login + '", "Password" : "' + password + '"}';
-	var url = urlBase + '/Loginp.' + extension;
-	
+	var url = /*urlBase +*/ '/Loginp.' + extension;
+
+    console.log(jsonPayload);
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -202,23 +201,24 @@ function doLogin()
 	{
 		xhr.send(jsonPayload);
 		console.log("sent correctly.");
-		var jsonObject = JSON.parse( xhr.responseText );
-        console.log("retrieved correctly");
-		userId = jsonObject.id;
+		var jsonObject = String(JSON.parse(xhr.responseText));
+        console.log(jsonObject);
+		userId = Number(jsonObject.charAt(1));
+        console.log(userId);
 
 		if( userId < 1 )
 		{
 			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 			return;
 		}
-		
-		username = jsonObject.Username;
-		data = jsonObject.Data;
+
+		//username = jsonObject.Username;
+		data = jsonObject.replace(/"/g, "").replace(/\s/g, "").split("?");
 
 		//document.getElementById("userName").innerHTML = firstName + " " + lastName;
 		document.getElementById("loginName").value = "";
         document.getElementById("loginPassword").value = "";
-    
+
         hideOrShow( "loginDiv", false);
         hideOrShow( "contactDiv", true);
 	}
@@ -226,14 +226,15 @@ function doLogin()
 	{
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
-	
+    listContacts();
+
 }
 
 function placeholderLogin(){
 	//document.getElementById("userName").innerHTML = firstName + " " + lastName;
 	document.getElementById("loginName").value = "";
 	document.getElementById("loginPassword").value = "";
-	
+
 	hideOrShow( "loginDiv", false);
 	hideOrShow( "contactDiv", true);
 }
@@ -242,7 +243,7 @@ function doLogout()
 {
 	userId = 0;
 	firstName = "";
-	lastName = "";	
+	lastName = "";
 
 	hideOrShow( "contactDiv", false);
 	hideOrShow( "loginDiv", true);
@@ -257,7 +258,7 @@ function hideOrShow( elementId, showState )
 		vis = "hidden";
 		dis = "none";
 	}
-	
+
 	document.getElementById( elementId ).style.visibility = vis;
 	document.getElementById( elementId ).style.display = dis;
 }
@@ -272,6 +273,20 @@ function ShowPass() {
     }
 }
 
+function displayContacts(){
+    display = !display;
+    var vis = "visible";
+    var dis = "block";
+    if( !display )
+    {
+        vis = "hidden";
+        dis = "none";
+    }
+
+    document.getElementById( "myUL" ).style.visibility = vis;
+    document.getElementById( "myUL" ).style.display = dis;
+}
+
 function sha1(msg)
 //it have a 20 character salt added to the hash before sending this to the server
 {
@@ -280,7 +295,7 @@ function sha1(msg)
     {
         return n<<s|n>>>32-s;
     };
-    
+
     //function used for later use
     function tohex(i)
     {
@@ -290,89 +305,45 @@ function sha1(msg)
                 return h;
         }
     };
-    
+
     var H0=0x67452301, H1=0xEFCDAB89, H2=0x98B1DCFE, H3=0xA0325476, H4=0xC3D2E1F0, M=0x0ffffffff; //salt
-    
+
     var i, t, W=new Array(80), ml=msg.length, wa=new Array();
     msg += String.fromCharCode(0x80);
-    
+
     while(msg.length%4)
         msg+=String.fromCharCode(0);
-    
+
     for(i=0;i<msg.length;i+=4)
         wa.push(msg.charCodeAt(i)<<24|msg.charCodeAt(i+1)<<16|msg.charCodeAt(i+2)<<8|msg.charCodeAt(i+3));
-    
+
     while(wa.length%16!=14)
         wa.push(0);
         wa.push(ml>>>29), wa.push((ml<<3)&M);
-    
+
     for( var bo=0;bo<wa.length;bo+=16 )
     {
         for(i=0;i<16;i++)
             W[i]=wa[bo+i];
-        
+
         for(i=16;i<=79;i++)
             W[i]=rotl(W[i-3]^W[i-8]^W[i-14]^W[i-16],1);
-        
+
         var A=H0, B=H1, C=H2, D=H3, E=H4;
-        
+
         for(i=0 ;i<=19;i++)
             t=(rotl(A,5)+(B&C|~B&D)+E+W[i]+0x5A827999)&M, E=D, D=C, C=rotl(B,30), B=A, A=t;
-        
+
         for(i=20;i<=39;i++)
             t=(rotl(A,5)+(B^C^D)+E+W[i]+0x6ED9EBA1)&M, E=D, D=C, C=rotl(B,30), B=A, A=t;
-        
+
         for(i=40;i<=59;i++)
             t=(rotl(A,5)+(B&C|B&D|C&D)+E+W[i]+0x8F1BBCDC)&M, E=D, D=C, C=rotl(B,30), B=A, A=t;
-        
+
         for(i=60;i<=79;i++)
             t=(rotl(A,5)+(B^C^D)+E+W[i]+0xCA62C1D6)&M, E=D, D=C, C=rotl(B,30), B=A, A=t;
-        
+
         H0=H0+A&M; H1=H1+B&M; H2=H2+C&M; H3=H3+D&M; H4=H4+E&M;
     }
     return tohex(H0)+tohex(H1)+tohex(H2)+tohex(H3)+tohex(H4);
 }
-
-//function searchColor() //emebbed in the html i think
-//{
-//    var srch = document.getElementById("searchText").value;
-//    document.getElementById("colorSearchResult").innerHTML = "";
-//
-//    var colorList = document.getElementById("colorList");
-//    colorList.innerHTML = "";
-//
-//    var jsonPayload = '{"search" : "' + srch + '"}';
-//    var url = urlBase + '/SearchColors.' + extension;
-//
-//    var xhr = new XMLHttpRequest();
-//    xhr.open("POST", url, true);
-//    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-//    try
-//    {
-//        xhr.onreadystatechange = function()
-//        {
-//            if (this.readyState == 4 && this.status == 200)
-//            {
-//                hideOrShow( "colorList", true );
-//
-//                document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
-//                var jsonObject = JSON.parse( xhr.responseText );
-//
-//                var i;
-//                for( i=0; i<jsonObject.results.length; i++ )
-//                {
-//                    var opt = document.createElement("option");
-//                    opt.text = jsonObject.results[i];
-//                    opt.value = "";
-//                    colorList.options.add(opt);
-//                }
-//            }
-//        };
-//        xhr.send(jsonPayload);
-//    }
-//    catch(err)
-//    {
-//        document.getElementById("colorSearchResult").innerHTML = err.message;
-//    }
-//
-//}

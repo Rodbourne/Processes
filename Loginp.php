@@ -21,7 +21,7 @@
 		{
 			$row = $result->fetch_assoc();
 			$id = $row["UserID"];
-			$data = "SELECT FirstName,LastName,Phone,Address,City,State,Zipcode,Nickname,ContactID FROM Contacts where UserID='" . $id . "'";
+			$data = "SELECT UserID,FirstName,LastName,Phone,Address,City,State,Zipcode,Nickname,ContactID FROM Contacts where UserID='" . $id . "'";
 			$dataSql = $conn->query($data);
 			if($dataSql->num_rows > 0)
 			{
@@ -29,11 +29,11 @@
 			 {
 				if($searchCount > 0)
 					{
-						$name .= '", "';
+						$name .='" "';
 					}
 					$searchCount++;
-					$name .= '"' . $userData["FirstName"] . ", " . $userData["LastName"] . ", " . $userData["Phone"] . ", " . $userData["Address"] . ", " . $userData["City"] . ", " . $userData["State"] .
-					", " . $userData["Zipcode"] . ", " . $userData["Nickname"] . ", " . $userData["ContactID"] .'"';
+					$name .='"' . $userData["UserID"] . ", " . $inData["Username"] . ", " . $userData["FirstName"] . ", " . $userData["LastName"] . ", " . $userData["Phone"] . ", " . $userData["Address"] . ", " . $userData["City"] . ", " . $userData["State"] .
+						", " . $userData["Zipcode"] . ", " . $userData["Nickname"] . ", " . $userData["ContactID"] . '"';
 				}
 			}
 			returnWithInfo($id, $userName, $name);
@@ -66,7 +66,8 @@
 
 	function returnWithInfo($id, $userName, $str)
 	{
-		$retValue = '{"id":' . $id . ',"Username":"' . $userName . '","Data": '. $str .'}';
+		//$retValue = '{"id":' . $id . ',"Username":"' . $userName . '","Data": '. $str .'}';
+		$retValue = json_encode($str);
 
 		sendResultInfoAsJson($retValue);
 	}
