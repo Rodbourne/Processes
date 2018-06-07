@@ -29,18 +29,23 @@
 			 {
 				if($searchCount > 0)
 					{
-						$name .='" "';
+						$name .='"?"';
 					}
 					$searchCount++;
-					$name .='"' . $userData["UserID"] . ", " . $inData["Username"] . ", " . $userData["FirstName"] . ", " . $userData["LastName"] . ", " . $userData["Phone"] . ", " . $userData["Address"] . ", " . $userData["City"] . ", " . $userData["State"] .
-						", " . $userData["Zipcode"] . ", " . $userData["Nickname"] . ", " . $userData["ContactID"] . '"';
+					$name .='"'.$userData["UserID"].",".$inData["Username"].",".$userData["FirstName"].",".$userData["LastName"].",".$userData["Phone"].",".$userData["Address"].",".$userData["City"].",".$userData["State"].",".$userData["Zipcode"].",".$userData["Nickname"].",".$userData["ContactID"].'"';
 				}
 			}
-			returnWithInfo($id, $userName, $name);
+			if($dataSql->num_rows > 0){
+				returnWithInfo($id, $userName, $name);
+			}
+			else
+			{
+				returnWithError($id);
+			}
 		}
 		else
 		{
-			returnWithError($userName, $counter, "No User Found");
+			returnWithError($id);
 		}
 		$conn->close();
 	}
@@ -58,9 +63,9 @@
 		echo $obj;
 	}
 
-	function returnWithError($userName, $counter, $str)
+	function returnWithError($id)
 	{
-		$retValue = '{"id":0,"Username":"'. $userName .'","Counter":"' . $counter . '""Error":"' . $str . '"}';
+		$retValue = '{"id":' . $id . '}';
 		sendResultInfoAsJson($retValue);
 	}
 

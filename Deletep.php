@@ -16,7 +16,7 @@
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0)
 		{
-      $data = "DELETE FROM Contacts WHERE UserID='" . $inData["UserID"] . "' AND ContactID='" . $inData["ContactID"] . "'";
+      $data = "DELETE FROM Contacts WHERE UserID='" . $inData["UserID"] . "' AND ContactID='" . $inData["ContactID"] . '??'"'";
       $x = $conn->query($data);
 			returnWithInfo("Contact Deleted");
 		}

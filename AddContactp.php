@@ -19,11 +19,12 @@
 	else
 	{
 		$sql = "insert INTO Contacts (UserID, FirstName, LastName, Phone, Address, City, State, Zipcode, Nickname) VALUES (' $userId ', ' $firstName  ', '  $lastName  ', '  $phone  ', '  $address  ', ' $city  ', '  $state  ', '  $zipcode  ', '  $nickname  ')";
+		$result = $conn->query($sql);
 		returnWithError("Contact Added");
-		if( $result = $conn->query($sql) != TRUE )
-		{
-			returnWithError($conn->error);
-		}
+	//	if($result = $conn->query($sql) != TRUE )
+	//	{
+	//		returnWithError($conn->error);
+	//	}
 		$conn->close();
 	}
 
