@@ -6,7 +6,6 @@
   <link rel="stylesheet" href="contactCSS.css">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <script type="text/javascript" src = "script.js"></script>
-  <script type="text/javascript" src = "hideButton.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
@@ -55,12 +54,10 @@
       <button type = "submit" id = "logoutButton" onclick="doLogout()">Logout</button>
       <input type="text" id="myInput" onkeyup="searchUsers()" placeholder="Search for names.." title="Type in a name">
 
-    <div class ="thisList">
-      <ul class="myUL">
-      </ul>
-    </div>
+    <ul id="myUL" style = "display:none; visibility:hidden;">
+    </ul>
 
-      <button type="button" class="dContact">Display Contacts</button>
+      <button type="button" class="dContact" onclick="displayContacts()">Display Contacts</button>
     </div>
     <!-- Modal button containing contact form for adding-->
     <!-- Trigger/Open the Modal -->

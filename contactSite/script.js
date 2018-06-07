@@ -1,3 +1,4 @@
+
 //This is the professors unedited js code for hte colours
 
 var urlBase = 'ameade.us'; //url will be changed to whatever godaddy host url is
@@ -12,6 +13,7 @@ var username = "";
 var data = "";
 var jsonDatabase = "";
 var createList = "";
+var display = false;
 
 //create username and password
 function createUser()
@@ -248,6 +250,20 @@ function ShowPass() {
     } else {
         x.type = "password";
     }
+}
+
+function displayContacts(){
+    display = !display;
+    var vis = "visible";
+    var dis = "block";
+    if( !display )
+    {
+        vis = "hidden";
+        dis = "none";
+    }
+
+    document.getElementById( "myUL" ).style.visibility = vis;
+    document.getElementById( "myUL" ).style.display = dis;
 }
 
 function sha1(msg)
