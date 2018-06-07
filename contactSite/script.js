@@ -14,7 +14,7 @@ var data = "";
 var jsonDatabase = "";
 var createList = "";
 var display = false;
-
+var lastClickedForDelete = "";
 //create username and password
 function createUser()
 {
@@ -50,6 +50,37 @@ function createUser()
 function displayInfo(x)
 {
     console.log(x);
+    lastClickedForDelete = "" + x;
+}
+
+function deleteContact(){
+    var contactInformation = data[lastClickedForDelete].split(",");
+    var contactID = contactInformation[10];
+
+    var jsonPayload = '{"UserID" : "' + userId + '", "ContactID" : "' + contactID + '"}';
+    console.log(jsonPayload);
+    var url = '/Deletep.' + extension;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, false);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try
+    {
+        xhr.onreadystatechange = function()
+        {
+            if (this.readyState == 4 && this.status == 200)
+            {
+                //Change id to w/e we end up making the div for placing the confirmation
+                document.getElementById("contactResult").innerHTML = "Contact has been deleted";
+            }
+        };
+        xhr.send(jsonPayload);
+    }
+    catch(err)
+    {
+        //Change id to w/e we end up making the div for placing the confirmation
+        document.getElementById("contactResult").innerHTML = err.message;
+    }
 }
 
 function listContacts()
@@ -134,40 +165,6 @@ function addContact()//added the contact not finished
 		//Change id to w/e we end up making the div for placing the confirmation
 		document.getElementById("contactResult").innerHTML = err.message;
 	}
-}
-
-// deleting the contact
-function deleteContact()
-{
-    var cID = document.getElementById("contactID").value;
-    var uID = document.getElementById("userID").value;
-
-    var jsonPayload = '{"UserID" : "' + uID + '", "ContactID" : ' +
-    cID + '"}';
-
-    var url = urlBase + '/Deletep.' + extension;
-
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    try
-    {
-        xhr.onreadystatechange = function()
-        {
-            if (this.readyState == 4 && this.status == 200)
-            {
-                //Change id to w/e we end up making the div for placing the confirmation
-                //document.getElementById("placeholder").innerHTML = "Contact has been deleted";
-            }
-        };
-        xhr.send(jsonPayload);
-    }
-    catch(err)
-    {
-        //Change id to w/e we end up making the div for placing the confirmation
-        //document.getElementById("placeholder").innerHTML = err.message;
-    }
-
 }
 
 
