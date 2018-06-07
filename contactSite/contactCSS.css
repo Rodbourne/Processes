@@ -8,7 +8,6 @@
 }
 
 #contactDiv #myInput {
-  background-image: url('/css/searchicon.png');
   background-position: 10px 12px;
   background-repeat: no-repeat;
   width: 100%;
@@ -24,7 +23,7 @@
   margin: 0;
 }
 
-#contactDiv #myUL li a {
+#contactDiv #myUL li{
   border: 1px solid #ddd;
   margin-top: -1px; /* Prevent double borders */
   background-color: #f6f6f6;
@@ -35,7 +34,7 @@
   display: block
 }
 
-#contactDiv #myUL li a:hover:not(.header) {
+#contactDiv #myUL li:hover:not(.header) {
   background-color: #eee;
 }
 
