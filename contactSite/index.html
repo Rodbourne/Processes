@@ -59,14 +59,15 @@
     </div>
     <!-- Modal button containing contact form for adding-->
     <!-- Trigger/Open the Modal -->
-    <button onclick="document.getElementById('id01').style.display='block'"
-    class="w3-button">Add a contact</button>
+	
+    <button onclick="document.getElementById('id02').style.display='block'"
+        class="cancelbtn" id = "addContact">Add a contact</button>
 
     <!-- The Modal -->
-    <div id="id01" class="w3-modal">
+    <div id="id02" class="w3-modal">
       <div class="w3-modal-content">
         <div style = "background-color:#f2f2f2;" class="w3-container">
-          <span onclick="document.getElementById('id01').style.display='none'"
+          <span onclick="document.getElementById('id02').style.display='none'"
           class="w3-button w3-display-topright">&times;</span>
           <div class="container">
             <!--The contact form -->
@@ -140,6 +141,5 @@
     </div>
     <p id = "contactResult"></p>
   </div>
-
 </body>
 </html>
