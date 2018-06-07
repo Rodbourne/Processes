@@ -104,6 +104,6 @@
 	display: inline-block;
 }
 
-#myUL {
+.myUL {
 	display: none;
 }
