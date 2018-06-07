@@ -49,8 +49,16 @@ function createUser()
 
 function displayInfo(x)
 {
-    console.log(x);
     lastClickedForDelete = "" + x;
+    var disp = data[lastClickedForDelete].split(",");
+    document.getElementById("Firstname").innerHTML = disp[2];
+    document.getElementById("Lastname").innerHTML = disp[3];
+    document.getElementById("Nickname").innerHTML = disp[9];
+    document.getElementById("Phonenumber").innerHTML = disp[4];
+    document.getElementById("Address").innerHTML = disp[5];
+    document.getElementById("City").innerHTML = disp[6];
+    document.getElementById("State").innerHTML = disp[7];
+    document.getElementById("Zipcode").innerHTML = disp[8];
 }
 
 function deleteContact(){
