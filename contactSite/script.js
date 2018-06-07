@@ -11,7 +11,7 @@ var lastName = "";
 var username = "";
 var data = "";
 var jsonDatabase = "";
-
+var createList = "";
 
 //create username and password
 function createUser()
@@ -46,15 +46,17 @@ function createUser()
 }
 
 function listContacts(){
-    var createList = JSON.parse(data);
+    for( var i = 0; i < data.length; i++){
+        createList[i] = data[i].split(",");
+    }
     var ul = document.getElementById("myUL");
-    for( var i = 0; i < data.length; i++ )
+    for( var i = 0; i < createList.length; i++ )
     {
-       var o = data[i];
-       var li = document.createElement("li");
-       li.appendChild(document.createTextNode(o.FirstName , o.LastName));
-       ul.appendChild(li);
-   }
+      var o = createList[i];
+      var li = document.createElement("li");
+      li.appendChild(document.createTextNode(o[2] + ",\t" + o[3]));
+      ul.appendChild(li);
+  }    
 }
 
 function searchUsers()
@@ -177,10 +179,11 @@ function doLogin()
 	{
 		xhr.send(jsonPayload);
 		console.log("sent correctly.");
-		var jsonObject = JSON.parse( xhr.responseText );
+		var jsonObject = String(JSON.parse(xhr.responseText));
         console.log(jsonObject);
-		userId = jsonObject.UserID;
+		userId = Number(jsonObject.charAt(1));
         console.log(userId);
+        
 		if( userId < 1 )
 		{
 			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
@@ -188,7 +191,7 @@ function doLogin()
 		}
 		
 		//username = jsonObject.Username;
-		//data = jsonObject.Data;
+		data = jsonObject.replace(/"/g, "").replace(/\s/g, "").split("?");
 
 		//document.getElementById("userName").innerHTML = firstName + " " + lastName;
 		document.getElementById("loginName").value = "";
