@@ -195,6 +195,7 @@ function doLogin()
 	var jsonPayload = '{"Username" : "' + login + '", "Password" : "' + password + '"}';
 	var url = /*urlBase +*/ '/Loginp.' + extension;
 	
+    console.log(jsonPayload);
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -203,7 +204,7 @@ function doLogin()
 		xhr.send(jsonPayload);
 		console.log("sent correctly.");
 		var jsonObject = JSON.parse( xhr.responseText );
-        console.log("retrieved correctly");
+        console.log(jsonObject);
 		userId = jsonObject.id;
 
 		if( userId < 1 )
